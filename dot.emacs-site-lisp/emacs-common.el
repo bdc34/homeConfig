@@ -59,7 +59,10 @@
 
 (setq-default save-place t)
 
+(server-start);; start server for emacsclient
+
 ;; java hooks
 (add-hook 'java-mode-hook 
   (lambda () "set line highlight " (hl-line-mode 1)))
-                          
+              
+

@@ -34,6 +34,7 @@
     auto-complete
     zenburn-theme
     solarized-theme
+    magit
     rvm)
   "List of packages needs to be installed at launch")
 
