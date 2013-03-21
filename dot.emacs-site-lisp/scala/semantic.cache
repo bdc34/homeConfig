@@ -1,0 +1,16 @@
+;; Object scala/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "scala/"
+  :tables (list 
+   (semanticdb-table "cedet-scala.el"
+    :major-mode 'emacs-lisp-mode
+    :tags '(("semantic-ectag-lang" variable (:parent "scala-mode" :override-variable-flag t :default-value "scala") nil [948 1045]) ("semantic-ectag-lang-kind" variable (:parent "scala-mode" :override-variable-flag t :default-value "cotmnafVvTip") nil [1047 1159]) ("semantic-ectag-lang-extra-flags" variable (:parent "scala-mode" :override-variable-flag t :default-value (quote ("--langdef=scala" "--langmap=scala:.scala" "--regex-Scala=/^[ 	]*class[ 	]*([a-zA-Z0-9_]+)/\\1/c,class/" "--regex-Scala=/^[ 	]*object[ 	]*([a-zA-Z0-9_]+)/\\1/o,class/" "--regex-Scala=/^[ 	]*class[ 	]*([a-zA-Z0-9_]+)/\\1/c,class/" "--regex-Scala=/^[ 	]*object[ 	]*([a-zA-Z0-9_]+)/\\1/o,class/" "--regex-scala=/^[ 	]*trait[ 	]*([a-zA-Z0-9_]+)/\\1/t,class/" "--regex-Scala=/^[ 	]*case[ 	]*class[ 	]*([a-zA-Z0-9_]+)/\\1/m,class/" "--regex-Scala=/^[ 	]*case[ 	]*object[ 	]*([a-zA-Z0-9_]+)/\\1/n,class/" "--regex-Scala=/^[ 	]*abstract[ 	]*class[ 	]*([a-zA-Z0-9_]+)/\\1/a,class/" "--regex-Scala=/^[ 	]*def[ 	]*([a-zA-Z0-9_]+)[ 	]*.*[:=]/\\1/f,function/" "--regex-Scala=/[ 	]*val[ 	]*([a-zA-Z0-9_]+)[ 	]*[:=]/\\1/V,value/" "--regex-Scala=/[ 	]*var[ 	]*([a-zA-Z0-9_]+)[ 	]*[:=]/\\1/v,variable/" "--regex-Scala=/^[ 	]*type[ 	]*([a-zA-Z0-9_]+)[ 	]*[[<>=]/\\1/T,classs/" "--regex-Scala=/^[ 	]*import[ 	]*([a-zA-Z0-9_{}., 	=>]+$)/\\1/i,include/" "--regex-Scala=/^[ 	]*package[ 	]*([a-zA-Z0-9_.]+$)/\\1/p,package/"))) nil [1275 2481]) ("semantic-symbol->name-assoc-list" variable (:parent "scala-mode" :override-variable-flag t :default-value (quote ((type . "Types") (variable . "Variables") (value . "Values") (function . "Functions") (include . "Dependencies") (package . "Providers")))) nil [2483 2756]) ("semantic-scala-cedet-support" function (:user-visible-flag t) nil [2882 3212]) ("semantic-scala-cedet-support" code nil nil [3214 3244]) ("semantic-ectag-scala" package nil nil [3307 3338]))
+    :file "cedet-scala.el"
+    :pointmax 3377
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0pre4"
+  :semanticdb-version "2.0pre4"
+  )

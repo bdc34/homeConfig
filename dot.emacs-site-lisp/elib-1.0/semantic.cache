@@ -1,0 +1,15 @@
+;; Object elib-1.0/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "elib-1.0/"
+  :tables (list 
+   (semanticdb-table "elib-startup.el"
+    :major-mode 'emacs-lisp-mode
+    :tags '(("setq" code nil nil [108 193]))
+    :file "elib-startup.el"
+    :pointmax 194
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0pre3"
+  :semanticdb-version "2.0pre3"
+  )

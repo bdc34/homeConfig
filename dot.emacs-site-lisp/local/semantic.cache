@@ -1,0 +1,14 @@
+;; Object local/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "local/"
+  :tables (list 
+   (semanticdb-table "gnuserv-misc.el"
+    :major-mode 'emacs-lisp-mode
+    :tags 'nil
+    :file "gnuserv-misc.el"
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0beta3"
+  :semanticdb-version "2.0beta3"
+  )
