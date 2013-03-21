@@ -3,6 +3,24 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/prog-modes/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/elib-1.0"))
 
+;; java eclipse communication via eclim
+(custom-set-variables
+ '(eclim-eclipse-dirs '("/opt/eclipse")))
+(custom-set-variables
+ '(eclim-executable  "/opt/eclipse4.2/eclim"))
+(require 'eclim)
+(global-eclim-mode)
+;;Displaying compilation error messages in the echo area
+(setq help-at-pt-display-when-idle t)
+(setq help-at-pt-timer-delay 0.1)
+(help-at-pt-set-timer)
+;; regular auto-complete initialization
+(require 'auto-complete-config)
+(ac-config-default)
+;; add the emacs-eclim source
+(require 'ac-emacs-eclim-source)
+(ac-emacs-eclim-config)
+
 ;; Turn on font lock when in N3 mode
 (add-to-list 'load-path "~/.emacs-site-lisp/prog-modes/n3-mode.el")
 (autoload 'n3-mode "n3-mode" "Major mode for OWL or N3 files" t)

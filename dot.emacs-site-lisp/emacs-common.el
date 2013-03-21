@@ -1,10 +1,4 @@
 
-(add-hook 'dired-mode-hook ;do vi movement in dired
-          '(lambda ()
-            (define-key dired-mode-map "j" 'dired-next-line)
-            (define-key dired-mode-map "k" 'dired-previous-line)
-            (define-key dired-mode-map "h" 'dired-up-directory)))
-
 ;; keybindings
 ;; how to find a key to bind:
 ;; use M-x global-set-key then hit the key you want
@@ -15,7 +9,6 @@
 ;; Unbind Pesky Sleep Button
 (global-unset-key [(control z)])
 (global-unset-key [(control x)(control z)])
-;; Windows Style Undo
 (global-set-key [(control z)] 'undo)
 
 ;(global-set-key (kbd "C-c b") 'some-thing)
@@ -29,7 +22,16 @@
 (global-set-key [mouse-9] 'next-buffer)
 (global-set-key [mouse-8] 'previous-buffer)
 
+(add-hook 'dired-mode-hook ;do vi movement in dired
+          '(lambda ()
+            (define-key dired-mode-map "j" 'dired-next-line)
+            (define-key dired-mode-map "k" 'dired-previous-line)
+            (define-key dired-mode-map "h" 'dired-up-directory)))
+
+;;
 ;; Miscellaneous settings
+;;
+(hl-line-mode)
 (setq inhibit-startup-message t)
 (display-time)
 
@@ -55,14 +57,9 @@
   (set-selective-display (if selective-display nil 1)))
 (global-set-key "\M-+" 'jao-toggle-selective-display)
 
-;; Set up default editing mode.
-(setq default-major-mode 'indented-text-mode)
-(defun my-text-hook ()
-  "Set up for editing text, my way"
-  (interactive)
-  (set-fill-column 70)
-  (turn-on-auto-fill))
-
-(setq indented-text-mode-hook 'my-text-hook)
 (setq-default save-place t)
 
+;; java hooks
+(add-hook 'java-mode-hook 
+  (lambda () "set line highlight " (hl-line-mode 1)))
+                          
