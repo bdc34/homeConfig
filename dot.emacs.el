@@ -54,6 +54,7 @@
 
 (load-file (expand-file-name ".emacs-site-lisp/emacs-common.el" "~"))
 (load-file (expand-file-name ".emacs-site-lisp/mode-config.el" "~"))
+(load-file (expand-file-name ".emacs-site-lisp/per-system-config.el" "~"))
 
 (load-theme 'zenburn t)
 (set-cursor-color "coral")
