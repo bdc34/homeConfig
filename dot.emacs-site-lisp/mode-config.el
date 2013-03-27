@@ -12,11 +12,15 @@
 (global-eclim-mode)
 ;;Displaying compilation error messages in the echo area
 (setq help-at-pt-display-when-idle t)
-(setq help-at-pt-timer-delay 0.1)
+(setq help-at-pt-timer-delay 0.3)
 (help-at-pt-set-timer)
+
 ;; regular auto-complete initialization
 (require 'auto-complete-config)
 (ac-config-default)
+(ac-set-trigger-key "TAB")
+(setq ac-auto-start nil)
+
 ;; add the emacs-eclim source
 (require 'ac-emacs-eclim-source)
 (ac-emacs-eclim-config)
@@ -66,22 +70,23 @@
                    'nxml-mode))
      
 ;; Scala Mode
-(let ((path "~/.emacs-site-lisp/scala"))
-  (setq load-path (cons path load-path))
-  (load "scala-mode-auto.el"))
-(defun scala-turnoff-indent-tabs-mode ()
-  (setq indent-tabs-mode nil))
-;; scala mode hooks
-(add-hook 'scala-mode-hook 'scala-turnoff-indent-tabs-mode)
-;; Load the ensime lisp code...
-(add-to-list 'load-path "~/.emacs-site-lisp/ensime/elisp/")
-(require 'ensime)
-;; This step causes the ensime-mode to be started whenever
-;; scala-mode is started for a buffer. You may have to customize this step
-;; if you're not using the standard scala mode.
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-;; for scala sbt
-(load "~/.emacs-site-lisp/sbt.el")
+;; (let ((path "~/.emacs-site-lisp/scala"))
+;;   (setq load-path (cons path load-path))
+;;   (load "scala-mode-auto.el"))
+;; (defun scala-turnoff-indent-tabs-mode ()
+;;   (setq indent-tabs-mode nil))
+;; ;; scala mode hooks
+;; (add-hook 'scala-mode-hook 'scala-turnoff-indent-tabs-mode)
+;; ;; Load the ensime lisp code...
+;; (add-to-list 'load-path "~/.emacs-site-lisp/ensime/elisp/")
+;; (require 'ensime)
+;; ;; This step causes the ensime-mode to be started whenever
+;; ;; scala-mode is started for a buffer. You may have to customize this step
+;; ;; if you're not using the standard scala mode.
+;; (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+;; ;; for scala sbt
+;; ;; this is messing up normal compile so I'm commenting it out
+;; ;;(load "~/.emacs-site-lisp/sbt.el")
 
 
 (defun java-mode-untabify ()
