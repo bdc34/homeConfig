@@ -4,10 +4,6 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/elib-1.0"))
 
 ;; java eclipse communication via eclim
-(custom-set-variables
- '(eclim-eclipse-dirs '("/opt/eclipse")))
-(custom-set-variables
- '(eclim-executable  "/opt/eclipse4.2/eclim"))
 (require 'eclim)
 (global-eclim-mode)
 ;;Displaying compilation error messages in the echo area

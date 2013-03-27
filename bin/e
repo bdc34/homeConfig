@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ "$(pidof emacs-snapshot)" ] ; then
+    emacsclient "$@"
+else
+    emacs-snapshot -mm &
+    sleep 1
+    emacsclient "$@"
+fi

@@ -53,6 +53,7 @@
 (load-file( expand-file-name ".basic.el" "~"))
 (load-file (expand-file-name ".emacs-site-lisp/emacs-common.el" "~"))
 (load-file (expand-file-name ".emacs-site-lisp/mode-config.el" "~"))
+(load-file (expand-file-name ".emacs-site-lisp/per-system-config.el" "~"))
 
 (load-theme 'zenburn t)
 (set-cursor-color "coral")
@@ -70,7 +71,6 @@
  '(ecb-layout-window-sizes nil)
  '(ecb-options-version "2.40")
  '(eclim-eclipse-dirs (quote ("/opt/eclipse")))
- '(eclim-executable "/opt/eclipse4.2/eclim")
  '(fci-rule-color "#073642")
  '(global-highline-mode t)
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))

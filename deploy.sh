@@ -6,3 +6,9 @@
 ln -f -s $HOME/homeConfig/dot.emacs.el $HOME/.emacs
 ln -f -s $HOME/homeConfig/basic.el $HOME/.basic.el
 ln -f -s $HOME/homeConfig/dot.emacs-site-lisp $HOME/.emacs-site-lisp
+
+mkdir -p $HOME/bin
+for FILE in $( ls $HOME/homeConfig/bin )
+do
+ ln -f -s $HOME/homeConfig/bin/$FILE $HOME/bin
+done
