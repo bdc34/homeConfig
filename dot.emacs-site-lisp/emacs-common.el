@@ -41,3 +41,57 @@
 (server-start);; start server for emacsclient
               
 
+;;
+;; * Tramp, SSH and SUDO *
+;;
+;; I need to to be able to do the following:
+;; 1. edit a local file as root via sudo
+;; 2. edit a remote file as root via sudo
+;; 3. edit a local dir as root with sudo with dired 
+;; 4. edit a remote dir as root with sudo with dired 
+
+;;1: use Tramp like this: C-xC-f /sudo::/some/file
+;;2. use Tramp with proxy C-xC-f /sudo:root@remoteHost.edu:/some/file
+(set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
+
+;;3. use Tramp like this: M-x dired-find-file /sudo::/some/file
+;;4. use Tramp like this: M-x dired-find-file /sudo:root@remoteHost.edu:/some/file
+
+;; display host in mode line
+(defconst my-mode-line-buffer-identification
+  (list
+   '(:eval
+     (let ((host-name
+            (or (file-remote-p default-directory 'host)
+                (system-name))))
+       (if (string-match "^[^0-9][^.]*\\(\\..*\\)" host-name)
+           (substring host-name 0 (match-beginning 1))
+          host-name)))
+   ": %12b"))
+
+(setq-default
+ mode-line-buffer-identification
+ my-mode-line-buffer-identification)
+
+(add-hook 'dired-mode-hook
+ '(lambda () (setq 
+              mode-line-buffer-identification
+              my-mode-line-buffer-identification)))
+
+;; show header warning when editing file as root or sudo
+(defun my-tramp-header-line-function ()
+  (when 
+      (or (string-match "^/sudo:root.*$" default-directory)
+          (string-match "^/sudo::.*$" default-directory)
+          (string-match "^/ssh:root.*$" default-directory) )
+    (setq header-line-format
+          (propertize "*** The buffer bellow is visited as Root  ***"
+              'face '(:background "salmon" 
+                      :foreground "black" 
+                      :weight "bold" 
+                      :box t) ))))
+
+(add-hook 'find-file-hooks 'my-tramp-header-line-function)
+(add-hook 'dired-mode-hook 'my-tramp-header-line-function)
+
+

@@ -1,11 +1,12 @@
 ;; Brian's lenovo x230 laptop
 
-(custom-set-variables
- '(eclim-eclipse-dirs '("~/opt/eclipse")))
-
-;; (if (string-equal system-name "brian-x230")
-;;     (custom-set-variables
-;;      '(eclim-eclipse-dirs '("/opt/eclipse")))
-;;   (custom-set-variables
-;;    '(eclim-executable  "/opt/eclipse/eclim")))
-
+(pcase system-name
+  ("brian-x230"     
+    (message "setting customizations for brian-x230")
+    (custom-set-variables '(eclim-eclipse-dirs '("/opt/eclipse")))
+    (custom-set-variables '(eclim-executable  "/opt/eclipse/eclim")))
+  ("caruso-laptop" 
+   (message "setting customizations for caruso-laptop")
+   (custom-set-variables '(eclim-eclipse-dirs '("/opt/eclipse4.2")))
+   (custom-set-variables '(eclim-executable  "/opt/eclipse4.2/eclim")))
+)
