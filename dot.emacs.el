@@ -17,6 +17,7 @@
                ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 
+(require 'linkd)
 (require 'cl)
 ;; Guarantee all packages are installed on start
 (defvar packages-list
@@ -33,7 +34,12 @@
     zenburn-theme
     solarized-theme
     magit
-    rvm)
+    rvm
+    icicles
+    fuzzy-match
+    hexrgb
+    evil
+    )
   "List of packages needs to be installed at launch")
 
 (defun has-package-not-installed ()
