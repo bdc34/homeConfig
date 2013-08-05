@@ -10,6 +10,9 @@
 (tool-bar-mode -1);;lose tool bar, bleck
 (scroll-bar-mode -1);;lose scrollbars, oph.
 
+;;delete region on del or bksp, set before icicles
+(delete-selection-mode 1)
+
 (require 'package)
 (setq package-archives
              '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -21,7 +24,11 @@
 (require 'cl)
 ;; Guarantee all packages are installed on start
 (defvar packages-list
-  '(rainbow-mode
+  '(ecb
+    cedet
+    ruby-mode
+    rinari    
+    rainbow-mode
     fill-column-indicator
     clojure-mode
     cursor-chg
@@ -39,6 +46,9 @@
     fuzzy-match
     hexrgb
     evil
+    window-number
+    helm
+    ace-jump-mode
     )
   "List of packages needs to be installed at launch")
 
@@ -64,6 +74,16 @@
 
 (load-theme 'zenburn t)
 (set-cursor-color "coral")
+
+(require 'cl)
+(defun font-candidate (&rest fonts)
+  "Return existing font which first match."
+  (find-if (lambda (f) (find-font (font-spec :name f))) fonts))
+
+(set-face-attribute 'default nil :font 
+                    (font-candidate 
+                     '"Consolas-10:weight=normal" 
+                      "DejaVu Sans Mono-10:weight=normal"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
