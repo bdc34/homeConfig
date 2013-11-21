@@ -7,6 +7,6 @@
     (custom-set-variables '(eclim-executable  "/opt/eclipse/eclim")))
   ("caruso-laptop" 
    (message "setting customizations for caruso-laptop")
-   (custom-set-variables '(eclim-eclipse-dirs '("/opt/eclipse4.2")))
-   (custom-set-variables '(eclim-executable  "/opt/eclipse4.2/eclim")))
+   (custom-set-variables '(eclim-eclipse-dirs '("/opt/eclipse4.3-kepler")))
+   (custom-set-variables '(eclim-executable  "/opt/eclipse4.3-kepler/eclim")))
 )
