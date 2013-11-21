@@ -72,7 +72,10 @@
 (load-file (expand-file-name ".emacs-site-lisp/per-system-config.el" "~"))
 (load-file (expand-file-name ".emacs-site-lisp/mode-config.el" "~"))
 
-(load-theme 'zenburn t)
+(add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/prog-modes/gradle.el"))
+(require 'gradle)
+
+(load-theme 'wheatgrass t)
 (set-cursor-color "coral")
 
 (require 'cl)
@@ -82,8 +85,9 @@
 
 (set-face-attribute 'default nil :font 
                     (font-candidate 
-                     '"Consolas-10:weight=normal" 
-                      "DejaVu Sans Mono-10:weight=normal"))
+                     "Droid Sans Mono Slashed-11"
+                     '"Consolas-11:weight=normal" 
+                      "DejaVu Sans Mono-11:weight=normal"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
