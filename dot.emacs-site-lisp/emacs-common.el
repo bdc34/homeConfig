@@ -93,5 +93,3 @@
 
 (add-hook 'find-file-hooks 'my-tramp-header-line-function)
 (add-hook 'dired-mode-hook 'my-tramp-header-line-function)
-
-

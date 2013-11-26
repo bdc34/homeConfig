@@ -2,8 +2,12 @@
 ;; make emacs behave in a way that is comfortable.
 ;; Then this can be loaded from git on some machine that is 
 ;; not mine.
+;; This should work for v24 and pre-v24
 
 (show-paren-mode 1);; Bracket/brace/parentheses highlighting: 
+
+(tool-bar-mode -1);;lose tool bar, bleck
+(scroll-bar-mode -1);;lose scrollbars, oph.
 
 (setq inhibit-startup-message t)
 (setq transient-mark-mode t)
