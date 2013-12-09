@@ -28,6 +28,7 @@ shopt -s checkwinsize
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
+
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color) color_prompt=yes;;
@@ -107,4 +108,22 @@ fi
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+fi
+
+#emacs stuff
+export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
+
+# display grants for a whole mysql database
+mygrants()
+{
+  mysql -B -N $@ -e "SELECT DISTINCT CONCAT(
+    'SHOW GRANTS FOR ''', user, '''@''', host, ''';'
+    ) AS query FROM mysql.user" | \
+  mysql $@ | \
+  sed 's/\(GRANT .*\)/\1;/;s/^\(Grants for .*\)/## \1 ##/;/##/{x;p;x;}'
+}
+
+
+if [ -e /opt_arxiv/perl ]; then
+  export PATH=/opt_arxiv/perl/bin:$PATH
 fi

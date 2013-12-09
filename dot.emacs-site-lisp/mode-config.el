@@ -96,3 +96,5 @@
 	(untabify (1- (point)) (point-max))))
   nil)
 
+(add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/prog-modes/gradle.el"))
+(require 'gradle)
