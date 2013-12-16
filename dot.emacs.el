@@ -15,8 +15,8 @@
     (load-file( expand-file-name "~/.emacs-site-lisp/emacs24.el" "~")))
 
 (when (display-graphic-p)
-  (require 'follow-mouse)
-  (turn-on-follow-mouse)
+  ;;(require 'follow-mouse)
+  ;;(turn-on-follow-mouse)
   (require 'linkd))
 
 (load-file( expand-file-name ".basic.el" "~"))
