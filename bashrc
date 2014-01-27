@@ -118,3 +118,7 @@ mygrants()
 if [ -e /opt_arxiv/perl ]; then
   export PATH=/opt_arxiv/perl/bin:$PATH
 fi
+
+if [ -e ~/.bash-local ]; then
+  source ~/.bash-local
+fi
