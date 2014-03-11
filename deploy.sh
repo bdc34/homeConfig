@@ -13,3 +13,6 @@ for FILE in $( ls $HOME/homeConfig/bin )
 do
  ln -f -s $HOME/homeConfig/bin/$FILE $HOME/bin
 done
+
+mkdir -p $HOME/.emacs.d
+ln -f -s $HOME/bin/psh.pl $HOME/.emacs.d/psh.pl

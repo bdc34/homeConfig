@@ -3,6 +3,8 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/prog-modes/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/elib-1.0"))
 
+(require 'inf-perl)
+
 ;; java eclipse communication via eclim
 (require 'eclim)
 (global-eclim-mode)

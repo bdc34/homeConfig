@@ -36,9 +36,11 @@
     window-number
     helm
     ace-jump-mode
+    dired+
+    dired-sort-menu+    
     )
   "List of packages needs to be installed at launch")
 
-(load-theme 'wheatgrass t)
+(load-theme 'zenburn t)
 (set-cursor-color "coral")
 
