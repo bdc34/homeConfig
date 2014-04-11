@@ -18,3 +18,6 @@ fi
 if [ -e /opt_arxiv/perl ]; then
   export PATH=/opt_arxiv/perl/bin:$PATH
 fi
+
+#PDSH module to use by defulat
+PDSH_RCMD_TYPE=ssh
