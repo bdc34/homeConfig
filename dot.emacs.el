@@ -7,16 +7,10 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/prog-modes/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/elib-1.0"))
 
-
-;;delete region on del or bksp, set before icicles
-(delete-selection-mode 1)
-
 (if (>= emacs-major-version 24) 
     (load-file( expand-file-name "~/.emacs-site-lisp/emacs24.el" "~")))
 
 (when (display-graphic-p)
-  ;;(require 'follow-mouse)
-  ;;(turn-on-follow-mouse)
   (require 'linkd))
 
 (load-file( expand-file-name ".basic.el" "~"))
@@ -24,9 +18,6 @@
 ;; per sys needs to come before mode becuase it sets the location of eclimd
 (load-file (expand-file-name ".emacs-site-lisp/per-system-config.el" "~"))
 (load-file (expand-file-name ".emacs-site-lisp/mode-config.el" "~"))
-
-;; perly-sense
-(load-file (expand-file-name "~/.emacs-site-lisp/prog-modes/perlySense.el"))
 
 (require 'cl)
 
@@ -39,6 +30,9 @@
                      "Droid Sans Mono Slashed-11"
                      '"Consolas-11:weight=normal" 
                       "DejaVu Sans Mono-11:weight=normal"))
+
+;; start ido-find-file without current file
+(setq ido-use-filename-at-point nil)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -71,6 +65,7 @@
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map (quote ((20 . "#BC8383") (40 . "#CC9393") (60 . "#DFAF8F") (80 . "#D0BF8F") (100 . "#E0CF9F") (120 . "#F0DFAF") (140 . "#5F7F5F") (160 . "#7F9F7F") (180 . "#8FB28F") (200 . "#9FC59F") (220 . "#AFD8AF") (240 . "#BFEBBF") (260 . "#93E0E3") (280 . "#6CA0A3") (300 . "#7CB8BB") (320 . "#8CD0D3") (340 . "#94BFF3") (360 . "#DC8CC3"))))
  '(vc-annotate-very-old-color "#DC8CC3")
+ '(vc-follow-symlinks t)
  '(weechat-color-list (quote (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
  '(which-function-mode nil))
 (custom-set-faces

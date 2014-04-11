@@ -17,18 +17,29 @@
 ;(global-set-key [C-home] 'beginning-of-buffer)   
 ;(global-set-key "^?" 'backwards-delete-char-untabify)
 
-;;
+
 ;; Miscellaneous settings
-;;
+
+;; highlight current line
 (hl-line-mode)
 
+
+;; eval .dir.local files on remote systems
+(setq enable-remote-dir-locals t)
+
 ;; no tab chars in files, spaces only! important for source control 
-(setq-default tab-width 4 indent-tabs-mode nil)
+;;(setq-default tab-width 4 indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(defvaralias 'c-basic-offset 'tab-width)
+
 ;;Don't try to truncate lines in partial width windws
 (setq truncate-partial-width-windows nil) 
 
+;; This means when you visit a file, point goes to the last place
+;; where it was when you previously visited the same file.
 (setq-default save-place t)
-
+(require 'saveplace)
 
 ;; make it so that C-x k will close a emacsclient
 (add-hook 'server-switch-hook

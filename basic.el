@@ -11,12 +11,9 @@
 
 (setq inhibit-startup-message t)
 (setq transient-mark-mode t)
+(setq delete-selection-mode t)
 (setq comint-scroll-to-bottom-on-input t)
 (setq comint-prompt-read-only t)
-
-;; skip directories like .svn 
-;;(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-;;    (normal-top-level-add-subdirs-to-load-path))
 
 ;; mouse bindings for the fancy forwrd and back buttons
 (global-set-key [mouse-9] 'next-buffer)

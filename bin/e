@@ -1,9 +1,7 @@
 #!/bin/bash
 
-if [ "$(pidof emacs-snapshot)" ] ; then
+if [ "$( ps -ef | grep emacs | grep -v grep )" ] ; then
     emacsclient "$@"
 else
-    emacs-snapshot -mm &
-    sleep 1
-    emacsclient "$@"
+    emacs -mm "$@" &
 fi

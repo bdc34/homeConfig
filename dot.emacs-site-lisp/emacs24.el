@@ -38,6 +38,7 @@
     ace-jump-mode
     dired+
     dired-sort-menu+    
+    starter-kit
     )
   "List of packages needs to be installed at launch")
 
