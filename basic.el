@@ -15,9 +15,19 @@
 (setq comint-scroll-to-bottom-on-input t)
 (setq comint-prompt-read-only t)
 
+;; set scrolling to be a bit less frantic
+(setq-default scroll-margin 1
+              scroll-conservatively 0
+              scroll-up-aggressively 0.40
+              scroll-down-aggressively 0.25)
+
 ;; mouse bindings for the fancy forwrd and back buttons
 (global-set-key [mouse-9] 'next-buffer)
 (global-set-key [mouse-8] 'previous-buffer)
+
+;; slow scrolling with wheel and ctrl
+(global-set-key (kbd "<C-mouse-4>") 'scroll-down-line)
+(global-set-key (kbd "<C-mouse-5>") 'scroll-up-line)
 
 (add-hook 'dired-mode-hook ;do vi movement in dired
           '(lambda ()
@@ -34,7 +44,7 @@
 
 ;; shell-mode ; why is this not enabled by default?
 (add-hook 'comint-output-filter-functions
-	  'comint-watch-for-password-prompt)
+          'comint-watch-for-password-prompt)
 
 (setq kill-read-only-ok 1)	;;allow cutting of text from read only buffers
 
@@ -68,8 +78,6 @@
 
 (global-set-key [S-return]   'open-next-line)
 (global-set-key [C-S-return] 'open-previous-line)
-;;(global-set-key (kbd "C-o") 'open-next-line)
-;;(global-set-key (kbd "M-o") 'open-previous-line)
 
 ;; don't keep backups in working directories 
 (setq backup-directory-alist '(("." . "~/.saves")))
