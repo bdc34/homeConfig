@@ -1,9 +1,9 @@
 # Bash per login script
 # this is for env vars and path 
 
-if [[ -t "$fd" || -p /dev/stdin ]]
+if [[ -t "$fd" || -p /dev/stdin || -n "$PS1" ]]
 then 
-  source .bashrc
+  . .bashrc
 fi
 
 #check for nicename, the CUL-IT server name utility
