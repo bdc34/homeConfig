@@ -2,10 +2,10 @@
 # This is run for interactive shells only.
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+#[ -z "$PS1" ] && return
 
 # run bash rc for env stuff
-[[ -r ~/.bash_profile ]] && . ~/.bash_profile
+#[[ -r ~/.bash_profile ]] && . ~/.bash_profile
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.

@@ -1,6 +1,11 @@
 # Bash per login script
 # this is for env vars and path 
 
+if [[ -t "$fd" || -p /dev/stdin ]]
+then 
+  source .bashrc
+fi
+
 #check for nicename, the CUL-IT server name utility
 type nicename >/dev/null 2>&1
 if [  $? -ne 0 ]; then
@@ -13,6 +18,8 @@ export PATH=$PATH:$HOME/bin
 
 if [ "$CIT_SERVER" == "no" ]; then
     export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
+else
+    export ALTERNATE_EDITOR=vi EDITOR=vi VISUAL=vi
 fi
 
 if [ -e /opt_arxiv/perl ]; then
