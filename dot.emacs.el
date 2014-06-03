@@ -29,7 +29,8 @@
                     (font-candidate 
                      "Droid Sans Mono Slashed-11"
                      '"Consolas-11:weight=normal" 
-                      "DejaVu Sans Mono-11:weight=normal"))
+                     "DejaVu Sans Mono-11:weight=normal"
+                     "Monospace"))
 
 ;; start ido-find-file without current file
 (setq ido-use-filename-at-point nil)
