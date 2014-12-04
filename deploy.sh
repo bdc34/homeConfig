@@ -7,7 +7,7 @@ ln -f -s $HOME/homeConfig/dot.emacs.el $HOME/.emacs
 ln -f -s $HOME/homeConfig/basic.el $HOME/.basic.el
 ln -f -s $HOME/homeConfig/dot.emacs-site-lisp $HOME/.emacs-site-lisp
 
-ln -f -s $HOME/homeConfig/bash_profile.sh $HOME/.bash_profile
+ln -f -s $HOME/homeConfig/profile.sh $HOME/.profile
 ln -f -s $HOME/homeConfig/bashrc.sh $HOME/.bashrc
 
 

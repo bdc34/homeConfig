@@ -1,16 +1,11 @@
 # .bashrc 
-# This is run for interactive shells only.
+# This is run for interactive shells and for logins by .profile
 
-# If not running interactively, don't do anything
-#[ -z "$PS1" ] && return
-
-# run bash rc for env stuff
-#[[ -r ~/.bash_profile ]] && . ~/.bash_profile
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+umask 002
 
 # don't put duplicate lines in the history. See bash(1) for more options
-# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
-export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
-# ... or force ignoredups and ignorespace
 export HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
@@ -18,13 +13,12 @@ shopt -s histappend
 PROMPT_COMMAND='history -a'
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+export history=1000
+export savehist=40
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
@@ -35,6 +29,7 @@ fi
 case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
+
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
@@ -51,15 +46,19 @@ if [ -n "$force_color_prompt" ]; then
 	color_prompt=
     fi
 fi
+
 #check for nicename, the CUL server name utility
 type nicename >/dev/null 2>&1
 
 if [  $? -ne 0 ]; then
         PROMPT_H='\h'
         CIT_SERVER="no"
+        export PATH=$PATH:$HOME/bin
     else	
         PROMPT_H=$(nicename)
         CIT_SERVER="yes"
+        export ALTERNATE_EDITOR='emacs -nw' EDITOR='emacs -nw' VISUAL='emacs -nw'
+        export PATH=$PATH:/users/bdc34/bin
 fi
 if [ "$color_prompt" = yes ]; then
     PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@$PROMPT_H\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ "
@@ -101,6 +100,40 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+#PDSH module to use by defulat
+PDSH_RCMD_TYPE=ssh
+
+# Simeon W:
+# If this is an arXiv machine then add some extra stuff
+#
+aliasname=`hostname -a`
+if [[ $aliasname =~ '\w' ]]; then
+    aliasname="$aliasname ==" 
+else
+    aliasname=''
+fi
+if [[ `nicename` =~ 'arxiv' ]]; then
+    echo "This is an arXiv machine: $aliasname" `nicename` "==" `hostname`
+    alias fd='/users/e-prints/bin/dev/finddef.pl'
+    alias fu='/users/e-prints/bin/dev/finduse.pl'
+    alias ep='sudo su - e-prints'
+    alias rl='sudo /users/e-prints/bin/rl'
+    alias cpan='sudo sh -c "/opt_arxiv/perl/bin/perl -MCPAN -e shell"'
+    alias mysql_login.pl=/users/e-prints/bin/mysql_login.pl
+else
+    echo "This is a CIT system: $aliasname" `nicename` "==" `hostname`
+    alias fd='echo "This is not an arxiv machine."'
+    alias fu='echo "This is not an arxiv machine."'
+    alias ep='echo "This is not an arxiv machine."'
+    alias rl='echo "This is not an arxiv machine."'
+    alias cpan='echo "This is not an arxiv machine."'
+    alias mysql_login.pl='echo "This is not an arxiv machine."'
+fi
+
+if [ -e /opt_arxiv/perl ]; then
+  export PATH=/opt_arxiv/perl/bin:$PATH
+fi
+
 
 # display grants for a whole mysql database
 mygrants()
@@ -115,3 +148,4 @@ mygrants()
 if [ -e ~/.bash-local ]; then
   source ~/.bash-local
 fi
+
