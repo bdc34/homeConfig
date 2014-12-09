@@ -5,8 +5,10 @@
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
 
-echo "Who is on this server?" ; who ; echo
-
+# stuff like this is just for xterm to protect scp odd use of the shell 
+if [ "$TERM" == 'xterm' ]; then
+    echo "Who is on this server?" ; who ; echo
+fi
 
 # run the .bashrc even on login
 if [ -f ~/.bashrc ]; then

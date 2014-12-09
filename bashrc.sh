@@ -106,6 +106,7 @@ PDSH_RCMD_TYPE=ssh
 # Simeon W:
 # If this is an arXiv machine then add some extra stuff
 #
+SYSTEM_TYPE='non-cornell';
 aliasname=`hostname -a`
 if [[ $aliasname =~ '\w' ]]; then
     aliasname="$aliasname ==" 
@@ -113,21 +114,26 @@ else
     aliasname=''
 fi
 if [[ `nicename` =~ 'arxiv' ]]; then
-    echo "This is an arXiv machine: $aliasname" `nicename` "==" `hostname`
     alias fd='/users/e-prints/bin/dev/finddef.pl'
     alias fu='/users/e-prints/bin/dev/finduse.pl'
     alias ep='sudo su - e-prints'
     alias rl='sudo /users/e-prints/bin/rl'
     alias cpan='sudo sh -c "/opt_arxiv/perl/bin/perl -MCPAN -e shell"'
     alias mysql_login.pl=/users/e-prints/bin/mysql_login.pl
+    SYSTEM_TYPE='arxiv'
 else
-    echo "This is a CIT system: $aliasname" `nicename` "==" `hostname`
     alias fd='echo "This is not an arxiv machine."'
     alias fu='echo "This is not an arxiv machine."'
     alias ep='echo "This is not an arxiv machine."'
     alias rl='echo "This is not an arxiv machine."'
     alias cpan='echo "This is not an arxiv machine."'
     alias mysql_login.pl='echo "This is not an arxiv machine."'
+    SYSTEM_TYPE='cit'
+fi
+
+# stuff like this is just for xterm to protect scp odd use of the shell 
+if [ "$TERM" = 'xterm' ]; then
+    echo "This is an $SYSTEM_TYPE  machine $aliasname" `nicename` "==" `hostname`
 fi
 
 if [ -e /opt_arxiv/perl ]; then
