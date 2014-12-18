@@ -116,12 +116,20 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-#PDSH module to use by defulat
-PDSH_RCMD_TYPE=ssh
+# Change pdsh ssh args to forward ssh agent for doing git pulls
+export PDSH_SSH_ARGS="-2 -A -x -l%u %h" 
+# PDSH module to use by defulat
+export PDSH_RCMD_TYPE="ssh"
+# Server groups for use with PDSH -w
+export warxivprod="arxiv-export,arxiv-export[1-2],arxiv-web[1-3],arxiv-db,arxiv-db[2-3],arxiv-nexus,arxiv-res"
+export warxivdev="arxiv-dev,arxiv-beta1"
+export warxivall="$warxivdev,$warxivprod"
+export wcularprod="cular,cular-follower"
+export wcularall="$wcularprod,cular-dev"
+export wcornellall="bdc34-dev,$wcularall,$warxivall"
 
 # Simeon W:
 # If this is an arXiv machine then add some extra stuff
-#
 
 if [ "$CIT_SERVER" == 'yes' ] && [[ `nicename` =~ 'arxiv' ]] ; then
     alias fd='/users/e-prints/bin/dev/finddef.pl'

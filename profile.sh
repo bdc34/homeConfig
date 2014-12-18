@@ -28,18 +28,3 @@ fi
 if [ -f ~/.bashrc ]; then
    source ~/.bashrc
 fi
-
-# change pdsh ssh args to
-# forward ssh agent for doing git pulls
-export PDSH_SSH_ARGS="-2 -A -x -l%u %h" 
-#PDSH module to use by defulat
-export PDSH_RCMD_TYPE="ssh"
-
-#server groups
-
-export warxivprod="arxiv-export,arxiv-export[1-2],arxiv-web[1-3],arxiv-db,arxiv-db[2-3],arxiv-nexus,arxiv-res"
-export warxivdev="arxiv-dev,arxiv-beta1"
-export warxivall="$warxivdev,$warxivprod"
-export wcularprod="cular,cular-follower"
-export wcularall="$wcularprod,cular-dev"
-export wcornellall="bdc34-dev,$wcularall,$warxivall"
