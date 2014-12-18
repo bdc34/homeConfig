@@ -19,10 +19,8 @@ fi
 # stuff like this is just for xterm to protect scp odd use of the  shell 
 if [ "$TERM" == 'xterm' ]; then
     echo "Who is on this server?" ; who ; echo
-    if [ "$(which nicename)" == '1' ]; then
-        echo "This is an $SYSTEM_TYPE  machine " `nicename` "==" `hostname`
-    else
-        echo "This is not a CIT server machine " `hostname -f`
+    if [ -e /usr/local/bin/nicename ]; then
+        echo "This is an CUL-CIT machine. Nicename: " `nicename` "==" `hostname`
     fi
 fi
 
