@@ -6,18 +6,18 @@
 umask 002
 export RAN_BASHRC=`date`;
 
-# Change pdsh ssh args to forward ssh agent for doing git pulls
-export PDSH_SSH_ARGS="-2 -A -x -l%u %h" 
-# PDSH module to use by defulat
-export PDSH_RCMD_TYPE="ssh"
+# # Change pdsh ssh args to forward ssh agent for doing git pulls
+# export PDSH_SSH_ARGS="-2 -A -x -l%u %h" 
+# # PDSH module to use by defulat
+# export PDSH_RCMD_TYPE="ssh"
 
-# server groups for use with pdsh -w $wxyz
-export warxivprod="arxiv-export,arxiv-export[1-2],arxiv-web[1-3],arxiv-db,arxiv-db[2-3],arxiv-nexus,arxiv-res"
-export warxivdev="arxiv-dev,arxiv-beta1"
-export warxivall="$warxivdev,$warxivprod"
-export wcularprod="cular,cular-follower"
-export wcularall="$wcularprod,cular-dev"
-export wcornellall="bdc34-dev,$wcularall,$warxivall"
+# # server groups for use with pdsh -w $wxyz
+# export warxivprod="arxiv-export,arxiv-export[1-2],arxiv-web[1-3],arxiv-db,arxiv-db[2-3],arxiv-nexus,arxiv-res"
+# export warxivdev="arxiv-dev,arxiv-beta1"
+# export warxivall="$warxivdev,$warxivprod"
+# export wcularprod="cular,cular-follower"
+# export wcularall="$wcularprod,cular-dev"
+# export wcornellall="bdc34-dev,$wcularall,$warxivall"
 
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoreboth
@@ -42,6 +42,7 @@ fi
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color) color_prompt=yes;;
+    xterm) color_prompt=yes;;
 esac
 
 
@@ -61,25 +62,26 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-#check for nicename, the CUL server name utility
-type nicename >/dev/null 2>&1
 
+type nicename >/dev/null 2>&1
 if [  $? -ne 0 ]; then
         PROMPT_H='\h'
         CIT_SERVER="no"
-        export PATH=$PATH:$HOME/bin
     else	
         PROMPT_H=$(nicename)
         CIT_SERVER="yes"
-        export ALTERNATE_EDITOR='emacs -nw' EDITOR='emacs -nw' VISUAL='emacs -nw'
-        export PATH=$PATH:/users/bdc34/bin
 fi
+
 if [ "$color_prompt" = yes ]; then
     PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@$PROMPT_H\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ "
 else
     PS1="${debian_chroot:+($debian_chroot)}\u@$PROMPT_H:\W\$ "
 fi
 unset color_prompt force_color_prompt
+
+if [ -e /opt_arxiv/perl ]; then
+  export PATH=/opt_arxiv/perl/bin:$PATH
+fi
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -120,14 +122,8 @@ PDSH_RCMD_TYPE=ssh
 # Simeon W:
 # If this is an arXiv machine then add some extra stuff
 #
-SYSTEM_TYPE='non-cornell';
-aliasname=`hostname -a`
-if [[ $aliasname =~ '\w' ]]; then
-    aliasname="$aliasname ==" 
-else
-    aliasname=''
-fi
-if [[ `nicename` =~ 'arxiv' ]]; then
+
+if [ "$CIT_SERVER" == 'yes' ] && [[ `nicename` =~ 'arxiv' ]] ; then
     alias fd='/users/e-prints/bin/dev/finddef.pl'
     alias fu='/users/e-prints/bin/dev/finduse.pl'
     alias ep='sudo su - e-prints'
@@ -140,20 +136,10 @@ else
     alias fu='echo "This is not an arxiv machine."'
     alias ep='echo "This is not an arxiv machine."'
     alias rl='echo "This is not an arxiv machine."'
-    alias cpan='echo "This is not an arxiv machine."'
     alias mysql_login.pl='echo "This is not an arxiv machine."'
     SYSTEM_TYPE='cit'
 fi
 
-# stuff like this is just for xterm to protect scp odd use of the  shell 
-if [ "$TERM" == 'xterm' ]; then
-    echo "Who is on this server?" ; who ; echo
-    echo "This is an $SYSTEM_TYPE  machine $aliasname" `nicename` "==" `hostname`
-fi
-
-if [ -e /opt_arxiv/perl ]; then
-  export PATH=/opt_arxiv/perl/bin:$PATH
-fi
 
 # display grants for a whole mysql database
 mygrants()

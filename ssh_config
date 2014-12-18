@@ -1,0 +1,105 @@
+# Leave plain text host names in known_hosts
+HashKnownHosts no
+
+ForwardAgent yes
+
+Host bdc34-dev
+     HostName bdc34-dev.library.cornell.edu
+     ForwardX11 yes
+
+Host export
+     HostName arxiv-export.library.cornell.edu
+     ForwardX11 yes
+Host res
+     HostName arxiv-res.library.cornell.edu
+     ForwardX11 yes
+Host beta
+     HostName arxiv-beta.library.cornell.edu
+     ForwardX11 yes
+Host nexus
+     HostName arxiv-nexus.library.cornell.edu
+     ForwardX11 yes
+
+Host web1
+     HostName arxiv-web1.library.cornell.edu
+     ForwardX11 yes
+Host web2
+     HostName arxiv-web2.library.cornell.edu
+     ForwardX11 yes
+Host web3
+     HostName arxiv-web3.library.cornell.edu
+     ForwardX11 yes
+Host export1
+     HostName arxiv-export1.library.cornell.edu
+     ForwardX11 yes
+Host export2
+     HostName arxiv-export2.library.cornell.edu
+     ForwardX11 yes
+
+
+Host da-rdf
+        HostName da-rdf.library.cornell.edu
+        ForwardX11 yes
+Host da-dev-solr
+        HostName da-dev-solr.library.cornell.edu
+        ForwardX11 yes
+Host vivoprod01
+        HostName vivoprod01.library.cornell.edu
+        ForwardX11 yes
+Host da-ilayer
+        HostName da-ilayer.library.cornell.edu
+        ForwardX11 yes
+Host ildev
+        HostName ildev.library.cornell.edu
+        ForwardX11 yes
+Host vivoprod02
+        HostName vivoprod02.library.cornell.edu
+        ForwardX11 yes
+Host vivo
+        HostName vivo.cornell.edu 
+        ForwardX11 yes
+Host da-prod-solr1
+        HostName da-prod-solr1.library.cornell.edu
+        ForwardX11 yes
+Host cint
+        HostName cint.library.cornell.edu
+        ForwardX11 yes
+Host culdata
+        HostName culdata.library.cornell.edu
+        ForwardX11 yes
+Host jaf30-dev
+        HostName jaf30-dev.library.cornell.edu
+        ForwardX11 yes
+Host da-stg-msolr
+        HostName da-stg-msolr.library.cornell.edu
+        ForwardX11 yes
+Host da-stg-ssolr
+        HostName da-stg-ssolr.library.cornell.edu
+        ForwardX11 yes
+Host culdatadev
+        HostName culdatadev.library.cornell.edu
+        ForwardX11 yes
+Host culsearchdev
+        HostName culsearchdev.library.cornell.edu
+        ForwardX11 yes
+Host vivo
+        HostName vivo.vivoweb.org
+        ForwardX11 yes
+Host rollins
+        HostName rollins.mannlib.cornell.edu
+        ForwardX11 yes
+
+Host cular
+        HostName cular.library.cornell.edu
+        ForwardX11 yes
+Host cular-dev
+        HostName cular-dev.library.cornell.edu
+        ForwardX11 yes
+Host cular-follower merit
+        HostName mrt-cular-01.library.cornell.edu
+        ForwardX11 yes
+
+
+Host github
+        HostName github.com
+
