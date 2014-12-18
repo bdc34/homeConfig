@@ -131,15 +131,15 @@ else
     SYSTEM_TYPE='cit'
 fi
 
-# stuff like this is just for xterm to protect scp odd use of the shell 
-if [ "$TERM" = 'xterm' ]; then
+# stuff like this is just for xterm to protect scp odd use of the  shell 
+if [ "$TERM" == 'xterm' ]; then
+    echo "Who is on this server?" ; who ; echo
     echo "This is an $SYSTEM_TYPE  machine $aliasname" `nicename` "==" `hostname`
 fi
 
 if [ -e /opt_arxiv/perl ]; then
   export PATH=/opt_arxiv/perl/bin:$PATH
 fi
-
 
 # display grants for a whole mysql database
 mygrants()
