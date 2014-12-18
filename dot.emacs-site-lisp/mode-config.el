@@ -5,8 +5,9 @@
 
 
 ;; flymake from https://github.com/illusori/emacs-flymake
-(add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/flymake"))
-(require 'flymake)
+;; I'm having problems with flymake leaving files all over the place.
+;;(add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/flymake"))
+;;(require 'flymake)
 
 ;; Perl config
 (defalias 'perl-mode 'cperl-mode)
@@ -51,6 +52,7 @@
 ;; If you only want syntax check whenever you save, not continously
 (setq flymake-no-changes-timeout 9999)
 (setq flymake-start-syntax-check-on-newline nil)
+(setq flymake-run-in-place nil) ;; make temp files in tmp dir.
 
 ;; ** Code Coverage Visualization **
 ;; If you have a Devel::CoverX::Covered database handy and want to
@@ -58,14 +60,11 @@
 (setq ps/enable-test-coverage-visualization nil)
 
 ;; ** Color Config **
-;; Emacs named colors: http://www.geocities.com/kensanata/colors.html
-;; The following colors work fine with a white X11
-;; background. They may not look that great on a console with the
-;; default color scheme.
-(set-face-background 'flymake-errline "antique white")
-(set-face-background 'flymake-warnline "lavender")
-(set-face-background 'dropdown-list-face "lightgrey")
-(set-face-background 'dropdown-list-selection-face "grey")
+;; The following colors work fine with a gray backrounded zenburn theme
+(set-face-background 'flymake-errline "OrangeRed")
+(set-face-background 'flymake-warnline "orcid4")
+;(set-face-background 'dropdown-list-face "lightgrey")
+;(set-face-background 'dropdown-list-selection-face "grey")
 
 
 ;; ** Misc Config **

@@ -1,13 +1,14 @@
 " use a blue that will be visible on black
-hi comment ctermfg=blue
-
+" Went to setting the color scheme of my terminal emulator instead
+"hi comment ctermfg=blue
+"colorshcme twilight
 
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
 " Enable filetype plugins
-filetype plugin on
-filetype indent on
+"filetype plugin on
+"filetype indent on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related

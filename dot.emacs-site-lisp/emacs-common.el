@@ -71,6 +71,7 @@
 ;; display host in mode line
 (defconst my-mode-line-buffer-identification
   (list
+   "emacs "
    '(:eval
      (let ((host-name
             (or (file-remote-p default-directory 'host)
