@@ -21,4 +21,5 @@ done
 
 mkdir -p $HOME/.ssh
 chmod 700 $HOME/.ssh
+chmod 700 $HOME/homeConfig/ssh_config
 ln -f -s $HOME/homeConfig/ssh_config $HOME/.ssh/config
