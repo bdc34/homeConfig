@@ -28,8 +28,7 @@
 (set-face-attribute 'default nil :font 
                     (font-candidate 
                      "Droid Sans Mono Slashed-11"
-                     '"Consolas-11:weight=normal" 
-                     "DejaVu Sans Mono-11:weight=normal"
+                     "DejaVu Sans Mono-11"
                      "Monospace"))
 
 ;; start ido-find-file without current file
