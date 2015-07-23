@@ -77,8 +77,8 @@
 
 
 ;; java eclipse communication via eclim
-(require 'eclim)
-(global-eclim-mode)
+;(require 'eclim)
+;(global-eclim-mode)
 ;;Displaying compilation error messages in the echo area
 (setq help-at-pt-display-when-idle t)
 (setq help-at-pt-timer-delay 0.3)

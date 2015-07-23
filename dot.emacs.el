@@ -28,7 +28,6 @@
 (set-face-attribute 'default nil :font 
                     (font-candidate 
                      "Droid Sans Mono Slashed-11"
-                     "DejaVu Sans Mono-11"
                      "Monospace"))
 
 ;; start ido-find-file without current file
@@ -48,8 +47,8 @@
  '(dabbrev-case-fold-search nil)
  '(ecb-layout-window-sizes nil)
  '(ecb-options-version "2.40")
- '(eclim-eclipse-dirs (quote ("/opt/eclipse4.3-kepler")))
- '(eclim-executable "/opt/eclipse4.3-kepler/eclim")
+;; '(eclim-eclipse-dirs (quote ("/opt/eclipse4.3-kepler")))
+;; '(eclim-executable "/opt/eclipse4.3-kepler/eclim")
  '(fci-rule-color "#073642")
  '(follow-mouse-auto-raise-frame nil)
  '(font-lock-maximum-decoration (quote ((dired-mode . 1))))
