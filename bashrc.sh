@@ -125,7 +125,7 @@ export warxivprod="arxiv-export,arxiv-export[1-2],arxiv-web[1-3],arxiv-db,arxiv-
 export warxivdev="arxiv-dev,arxiv-beta1"
 export warxivall="$warxivdev,$warxivprod"
 export wcularprod="cular,cular-follower"
-export wcularall="$wcularprod,cular-dev"
+export wcularall="$wcularprod,cular-dev,cular-ingest"
 export wcornellall="bdc34-dev,$wcularall,$warxivall"
 
 # Simeon W:
