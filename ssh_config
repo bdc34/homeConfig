@@ -98,6 +98,9 @@ Host cular-dev
 Host cular-follower merit
         HostName mrt-cular-01.library.cornell.edu
         ForwardX11 yes
+Host cular-ingest
+        HostName cular-ingest.library.cornell.edu
+        ForwardX11 yes
 
 
 Host github

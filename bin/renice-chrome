@@ -1,0 +1,2 @@
+#!/bin/bash
+ps -ef | grep chrome | grep -v grep | perl -lane "\`renice 12 -p @F[1]\` "

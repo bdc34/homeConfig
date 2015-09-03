@@ -18,8 +18,8 @@ fi
 
 # stuff like this is just for xterm to protect scp odd use of the  shell 
 if [ "$TERM" == 'xterm' ]; then
-    echo "Who is on this server?" ; who ; echo
     if [ -e /usr/local/bin/nicename ]; then
+        echo "Who is on this server?" ; who ; echo
         echo "This is an CUL-CIT machine. Nicename: " `nicename` "==" `hostname`
     fi
 fi
