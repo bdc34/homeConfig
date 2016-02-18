@@ -71,29 +71,29 @@ if [ "$color_prompt" = yes ]; then
     
     case "$USER" in
         bdc34*)
-            PUSER="\[\e[1;32m\]\u@\[\e[m\] "
+            PUSER="\[\e[1;32m\]\u\[\e[m\] "
             ;;
         root*)
-            PUSER="\[\e[1;31m\]\u@\[\e[m\]"
+            PUSER="\[\e[1;31m\]\u\[\e[m\]"
             ;;
         *)
-            PUSER="\[\e[1;33m\]\u@\[\e[m\]"
+            PUSER="\[\e[1;33m\]\u\[\e[m\]"
             ;;
     esac
 
     case "$PROMPT_H" in
         arxiv-web*|arxiv-db*|arxiv-ex*|arxiv-res*)
-            PHOST="\[\e[1;31m\]\$PROMPT_H\[\e[m\]"
+            PHOST="\[\e[1;31m\]@$PROMPT_H\[\e[m\]"
             ;;
         cular*|arxiv*)
-            PHOST="\[\e[1;33m\]\$PROMPT_H\[\e[m\]"
+            PHOST="\[\e[1;33m\]@$PROMPT_H\[\e[m\]"
             ;;
         *)
-            PHOST="\[\e[1;32m\]\$PROMPT_H\[\e[m\]"
+            PHOST="\[\e[1;32m\]@$PROMPT_H\[\e[m\]"
     esac
 else
     PUSER='\u'
-    PHOST="\$PROMPT_H"
+    PHOST="$PROMPT_H"
 fi
 
 CHROOT="${debian_chroot:+($debian_chroot)}";

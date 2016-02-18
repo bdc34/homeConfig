@@ -63,7 +63,7 @@
 
 ;;1: use Tramp like this: C-xC-f /sudo::/some/file
 ;;2. use Tramp with proxy C-xC-f /sudo:root@remoteHost.edu:/some/file
-(set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
+;(set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
 
 ;;3. use Tramp like this: M-x dired-find-file /sudo::/some/file
 ;;4. use Tramp like this: M-x dired-find-file /sudo:root@remoteHost.edu:/some/file
