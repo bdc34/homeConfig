@@ -31,7 +31,7 @@
 ;; eval a local file for stuff that is specific for a server or
 ;; should not go to git
 (let
-    ( local-config-file ( expand-file-name "~/.emacs-machine-local.el"))
+    ( ( local-config-file (expand-file-name "~/.emacs-machine-local.el") ))
   (if (file-exists-p local-config-file)
       (load-file local-config-file )))
 
