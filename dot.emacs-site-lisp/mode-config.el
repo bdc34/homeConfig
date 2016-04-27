@@ -12,11 +12,11 @@
 ;; Perl config
 (defalias 'perl-mode 'cperl-mode)
 (require 'inf-perl)
-(setq cperl-indent-level 2)
-(setq cperl-brace-offset 0)
-(setq cperl-continued-brace-offset -2)
-(setq cperl-label-offset -2)
-(setq cperl-continued-statement-offset 2)
+;; (setq cperl-indent-level 2)
+;; (setq cperl-brace-offset 0)
+;; (setq cperl-continued-brace-offset -2)
+;; (setq cperl-label-offset -2)
+;; (setq cperl-continued-statement-offset 2)
 
 ;; *** PerlySense Config ***
 
@@ -58,14 +58,6 @@
 ;; If you have a Devel::CoverX::Covered database handy and want to
 ;; display the sub coverage in the source, set this to t
 (setq ps/enable-test-coverage-visualization nil)
-
-;; ** Color Config **
-;; The following colors work fine with a gray backrounded zenburn theme
-(set-face-background 'flymake-errline "OrangeRed")
-(set-face-background 'flymake-warnline "orcid4")
-;(set-face-background 'dropdown-list-face "lightgrey")
-;(set-face-background 'dropdown-list-selection-face "grey")
-
 
 ;; ** Misc Config **
 

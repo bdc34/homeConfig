@@ -15,8 +15,6 @@
 
 (load-file( expand-file-name ".basic.el" "~"))
 (load-file (expand-file-name ".emacs-site-lisp/emacs-common.el" "~"))
-;; per sys needs to come before mode becuase it sets the location of eclimd
-(load-file (expand-file-name ".emacs-site-lisp/per-system-config.el" "~"))
 (load-file (expand-file-name ".emacs-site-lisp/mode-config.el" "~"))
 
 (require 'cl)
@@ -30,8 +28,12 @@
                      "Droid Sans Mono Slashed-11"
                      "Monospace"))
 
-;; start ido-find-file without current file
-(setq ido-use-filename-at-point nil)
+;; eval a local file for stuff that is specific for a server or
+;; should not go to git
+(let
+    ( local-config-file ( expand-file-name "~/.emacs-machine-local.el"))
+  (if (file-exists-p local-config-file)
+      (load-file local-config-file )))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -44,11 +46,8 @@
  '(custom-safe-themes
    (quote
     ("c5207e7b8cc960e08818b95c4b9a0c870d91db3eaf5959dd4eba09098b7f232b" "f5e56ac232ff858afb08294fc3a519652ce8a165272e3c65165c42d6fe0262a0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
- '(dabbrev-case-fold-search nil)
  '(ecb-layout-window-sizes nil)
  '(ecb-options-version "2.40")
-;; '(eclim-eclipse-dirs (quote ("/opt/eclipse4.3-kepler")))
-;; '(eclim-executable "/opt/eclipse4.3-kepler/eclim")
  '(fci-rule-color "#073642")
  '(follow-mouse-auto-raise-frame nil)
  '(font-lock-maximum-decoration (quote ((dired-mode . 1))))
@@ -115,3 +114,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+

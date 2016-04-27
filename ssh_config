@@ -1,6 +1,8 @@
 # Leave plain text host names in known_hosts
 HashKnownHosts no
 
+Host *
+ForwardX11 yes
 ForwardAgent yes
 
 Host bdc34-dev

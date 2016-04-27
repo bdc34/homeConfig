@@ -1,6 +1,5 @@
 ;; Only run this stuff if we are living a emacs 24 
 
-
 (require 'package)
 (setq package-archives
              '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -8,40 +7,40 @@
                ("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
 
-
-;; Guarantee all packages are installed on start
-(defvar packages-list
-  '(ecb
-    cedet
-    ruby-mode
-    rinari    
-    rainbow-mode
-    fill-column-indicator
-    clojure-mode
-    cursor-chg
-    highlight-indentation
-    highlight-symbol
-    markdown-mode
-    protobuf-mode
-    emacs-eclim
-    auto-complete
-    zenburn-theme
-    solarized-theme
-    magit
-    rvm
-    icicles
-    fuzzy-match
-    hexrgb
-    evil
-    window-number
+(defvar my-packages-list
+  '(async
+    dash
+    epl
+    ewmctrl
+    flx
+    flx-ido
+    flymake
+    git-commit
     helm
-    ace-jump-mode
-    dired+
-    dired-sort-menu+    
-    starter-kit
+    helm-core
+    helm-projectile
+    jabber
+    json-mode
+    json-reformat
+    json-snatcher
+    magit
+    magit-popup
+    pkg-info
+    popup
+    projectile
+    request
+    s
+    seq
+    tt-mode
+    ttl-mode
+    web-beautify
+    with-editor
+    zenburn
+    zenburn-theme
     )
-  "List of packages needs to be installed at launch")
+  "List of packages should be installed")
 
 (load-theme 'zenburn t)
 (set-cursor-color "coral")
 
+(load-file (expand-file-name ".emacs-site-lisp/helm-setup.el" "~"))

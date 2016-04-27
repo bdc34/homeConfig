@@ -23,7 +23,6 @@
 ;; highlight current line
 (hl-line-mode)
 
-
 ;; eval .dir.local files on remote systems
 (setq enable-remote-dir-locals t)
 
@@ -91,17 +90,17 @@
               my-mode-line-buffer-identification)))
 
 ;; show header warning when editing file as root or sudo
-(defun my-tramp-header-line-function ()
-  (when 
-      (or (string-match "^/sudo:root.*$" default-directory)
-          (string-match "^/sudo::.*$" default-directory)
-          (string-match "^/ssh:root.*$" default-directory) )
-    (setq header-line-format
-          (propertize "*** The buffer bellow is visited as Root  ***"
-              'face '(:background "salmon" 
-                      :foreground "black" 
-                      :weight "bold" 
-                      :box t) ))))
+ (defun my-tramp-header-line-function ()
+   (when 
+       (or (string-match "^/sudo:root.*$" default-directory)
+           (string-match "^/sudo::.*$" default-directory)
+           (string-match "^/ssh:root.*$" default-directory) )
+     (setq header-line-format
+           (propertize "*** The buffer bellow is visited as Root  ***"
+               'face '(:background "salmon" 
+                       :foreground "black" 
+                       :weight "bold" 
+                       :box t) ))))
 
 (add-hook 'find-file-hooks 'my-tramp-header-line-function)
 (add-hook 'dired-mode-hook 'my-tramp-header-line-function)
