@@ -5,7 +5,11 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/local/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/prog-modes/"))
-(add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/elib-1.0"))
+
+(add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/use-package"))
+(eval-when-compile
+  (require 'use-package))
+(require 'bind-key)
 
 (if (>= emacs-major-version 24) 
     (load-file( expand-file-name "~/.emacs-site-lisp/emacs24.el" "~")))
@@ -13,9 +17,11 @@
 (when (display-graphic-p)
   (require 'linkd))
 
+
 (load-file( expand-file-name ".basic.el" "~"))
 (load-file (expand-file-name ".emacs-site-lisp/emacs-common.el" "~"))
 (load-file (expand-file-name ".emacs-site-lisp/mode-config.el" "~"))
+;;(load-file (expand-file-name ".emacs-site-lisp/hipchat.el" "~"))
 
 (require 'cl)
 
