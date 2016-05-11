@@ -38,6 +38,16 @@
 (setq helm-buffers-fuzzy-matching t
       helm-recentf-fuzzy-match    t)
 
+;; Add action of normal find-files
+(defun old-ff (&optional no-op) (interactive)
+       (call-interactively 'find-file))
+(helm-add-action-to-source "Fallback find-file"
+                       'old-ff
+                       helm-source-find-files)
+(define-key helm-map (kbd "C-f")
+  (lambda () (interactive)
+    (helm-quit-and-execute-action 'old-ff)))
+  
 ;; set C-c C-l to 
 (require 'helm-eshell)
 (add-hook 'eshell-mode-hook

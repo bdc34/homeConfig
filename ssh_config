@@ -4,6 +4,8 @@ HashKnownHosts no
 Host bdc34-dev
      HostName bdc34-dev.library.cornell.edu
      
+Host arxiv-dev
+     HostName arxiv-dev.library.cornell.edu
 Host arxiv-res res
      HostName arxiv-res.library.cornell.edu
 Host arxiv-beta
