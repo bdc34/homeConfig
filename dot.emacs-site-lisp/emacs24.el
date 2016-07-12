@@ -47,3 +47,7 @@
 (set-cursor-color "coral")
 
 (load-file (expand-file-name ".emacs-site-lisp/helm-setup.el" "~"))
+
+(if (string= system-name "bdc34-laptop")
+    (load-file (expand-file-name "~/.emacs-site-lisp/helm-taskswitch.el")))
+

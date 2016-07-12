@@ -3,6 +3,8 @@ HashKnownHosts no
      
 Host bdc34-dev
      HostName bdc34-dev.library.cornell.edu
+Host mhl10-dev
+     HostName mhl10-dev.library.cornell.edu
      
 Host arxiv-dev
      HostName arxiv-dev.library.cornell.edu

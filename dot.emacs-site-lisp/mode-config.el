@@ -59,22 +59,11 @@
 (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
 (autoload 'camldebug "camldebug" "Run the Caml debugger" t)
 
-   ;;; html and css editing
-(autoload 'css-mode "css-mode")
-(setq auto-mode-alist
-      (cons '("\\.css\\'" . css-mode) auto-mode-alist))
+(add-hook 'css-mode-hook 
+      (lambda () 
+        (setq c-basic-offset 2) 
+        (setq indent-tabs-mode nil)))
 
-(autoload 'html-helper-mode "html-helper-mode" "Yay HTML" t)
-(setq auto-mode-alist (cons '("\\.html$" . html-helper-mode) auto-mode-alist))
-
-
-;;nXML mode
-(add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/nxml"))
-(load-file "~/.emacs-site-lisp/nxml/rng-auto.el")
-(add-to-list 'auto-mode-alist
-             (cons (concat "\\." (regexp-opt '("xml" "xsd" "sch" "rng" "xsl" "xslt" "svg" "rss") t) "\\'")
-                   'nxml-mode))
-     
 ;; Scala Mode
 ;; (let ((path "~/.emacs-site-lisp/scala"))
 ;;   (setq load-path (cons path load-path))
