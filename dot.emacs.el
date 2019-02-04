@@ -1,14 +1,13 @@
 ;; this gets run for GNU emacs
-;; snagged from various places like www.dotfile.com
-;; bdc 01dec2004
+
+(eval-when-compile
+  (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/use-package"))
+  (require 'use-package))
 
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/local/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/prog-modes/"))
 
-(add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/use-package"))
-(eval-when-compile
-  (require 'use-package))
 (require 'bind-key)
 
 (if (>= emacs-major-version 24) 
@@ -72,6 +71,9 @@
  '(magit-diff-use-overlays nil)
  '(org-agenda-files (quote ("~/Dropbox/notes arxiv.org")))
  '(package-check-signature nil)
+ '(package-selected-packages
+   (quote
+    (zenburn-theme tide solarized-theme rvm rainbow-mode protobuf-mode markdown-mode magit highlight-symbol helm-swoop helm-projectile helm-ag fill-column-indicator emacs-eclim elpy cursor-chg company-tern clojure-mode auto-complete ag)))
  '(syslog-debug-face
    (quote
     ((t :background unspecified :foreground "#2aa198" :weight bold))))
