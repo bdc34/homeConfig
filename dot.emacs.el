@@ -8,17 +8,19 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-(package-initialize)
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
 
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/local/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/prog-modes/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/X/"))
-(add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/use-package"))
 
-(eval-when-compile
-  (require 'use-package))
 (require 'bind-key)
 
 (if (>= emacs-major-version 24)
@@ -114,7 +116,6 @@
    (quote
     (php-mode sphinx-doc flycheck-mypy flycheck-pycheckers jinja2-mode company-quickhelp dimmer pipenv org-jira eslint-fix magit yasnippet yaml-mode async dash bind-key diminish typescript-mode s epl pkg-info seq flycheck hcl-mode tablist simple-httpd skewer-mode deferred request-deferred pythonic popup markdown-mode log4e json-snatcher json-reformat highlight-indentation gntp flx auto-complete pyvenv ivy ht helm-core find-file-in-project f pyenv-mode projectile helm ein py-autopep8 docker-compose-mode rjsx-mode web-mode js2-mode terraform-mode elpy docker docker-tramp dockerfile-mode undo-tree company tide zenburn-theme websocket web-beautify use-package ttl-mode tt-mode smartparens request oauth2 multi-term markdown-toc lua-mode json-mode imenus ido-better-flex flymake flx-ido ewmctrl emojify circe alert)))
  '(safe-local-variable-values (quote ((typescript-indent-level . 2))))
- '(send-mail-function (quote mailclient-send-it))
  '(syslog-debug-face
    (quote
     ((t :background unspecified :foreground "#2aa198" :weight bold))))

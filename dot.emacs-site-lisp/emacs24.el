@@ -1,67 +1,21 @@
 ;; Only run this stuff if we are living a emacs v >= 24
 
 (require 'package)
-(defvar my-packages
-  '(async
-    dash
-    ein
-    elpy
-    epl
-    ewmctrl
-    flx
-    flx-ido
-    flycheck
-    helm
-    helm-core
-    helm-projectile
-    jabber
-    json-mode
-    json-reformat
-    json-snatcher
-    magit
-    magit-gh-pulls
-    pkg-info
-    projectile
-    py-autopep8
-    request
-    s
-    seq
-    tt-mode
-    ttl-mode
-    web-beautify
-    with-editor
-    )
-  "List of packages that should be installed.")
-
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives
-             '("org" . "http://orgmode.org/elpa/"))
 
-;; install any packages in my-packages, if they are not installed already
-(let ((refreshed nil))
-  (when (not package-archive-contents)
-    (package-refresh-contents)
-    (setq refreshed t))
-  (dolist (pkg my-packages)
-    (when (and (not (package-installed-p pkg))
-             (assoc pkg package-archive-contents))
-      (unless refreshed
-        (package-refresh-contents)
-        (setq refreshed t))
-      (package-install pkg))))
+(eval-when-compile
+  (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/use-package"))
+  (require 'use-package))
 
-(defun package-list-unaccounted-packages ()
-  "Like `package-list-packages', but shows only the packages that
-  are installed and are not in `my-packages'.  Useful for
-  cleaning out unwanted packages."
-  (interactive)
-  (package-show-package-list
-   (remove-if-not (lambda (x) (and (not (memq x my-packages))
-                            (not (package-built-in-p x))
-                            (package-installed-p x)))
-                  (mapcar 'car package-archive-contents))))
+
+(use-package zenburn-theme
+  :ensure t
+  :config (progn
+            (load-theme 'zenburn t)
+            (set-cursor-color "coral")))
 
 (setq mouse-autoselect-window nil)
 
@@ -82,7 +36,8 @@
  '(ido-mode 'file)
 )
 
-(require 'magit-gh-pulls)
+(use-package magit-gh-pulls
+  :ensure t)
 (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
 
 (if (and (string= system-name "bdc34-laptop")
