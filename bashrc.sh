@@ -19,16 +19,9 @@ export RAN_BASHRC=`date`;
 # export wcularall="$wcularprod,cular-dev"
 # export wcornellall="bdc34-dev,$wcularall,$warxivall"
 
-# don't put duplicate lines in the history. See bash(1) for more options
-export HISTCONTROL=ignoreboth
-
 # append to the history file, don't overwrite it
 shopt -s histappend
-PROMPT_COMMAND='history -a'
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-export history=1000
-export savehist=40
+PROMPT_COMMAND='history -a;history -n'
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -105,6 +98,9 @@ unset color_prompt
 if [ -e /opt_arxiv/perl ]; then
   export PATH=/opt_arxiv/perl/bin:$PATH
 fi
+if [ -e /opt/node ]; then
+  export PATH=/opt/node/bin:$PATH
+fi
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -144,17 +140,13 @@ export PDSH_SSH_ARGS="-2 -A -x -l%u %h"
 # PDSH module to use by defulat
 export PDSH_RCMD_TYPE="ssh"
 # Server groups for use with PDSH -w
-export warxivprod="arxiv-export,arxiv-export[1-2],arxiv-web[1-3],arxiv-db,arxiv-db[2-3],arxiv-nexus,arxiv-res"
+export warxivprod="arxiv-export[1-3],arxiv-web[1-4],arxiv-db,arxiv-db[2-3],arxiv-nexus"
 export warxivdev="arxiv-dev,arxiv-beta1"
 export warxivall="$warxivdev,$warxivprod"
-export wcularprod="cular,cular-follower"
-export wcularall="$wcularprod,cular-dev,cular-ingest"
-export wcornellall="bdc34-dev,$wcularall,$warxivall"
+export wcornellall="bdc34-dev,$warxivall"
 
-# Simeon W:
 # If this is an arXiv machine then add some extra stuff
-
-if [ "$CIT_SERVER" == 'yes' ] && [[ `nicename` =~ 'arxiv' ]] ; then
+if [ "$CIT_SERVER" == 'yes' ] && [ $PROMPT_H =~ 'arxiv' ]   ; then
     alias fd='/users/e-prints/bin/dev/finddef.pl'
     alias fu='/users/e-prints/bin/dev/finduse.pl'
     alias ep='sudo su - e-prints'
@@ -170,7 +162,6 @@ else
     alias mysql_login.pl='echo "This is not an arxiv machine."'
     SYSTEM_TYPE='cit'
 fi
-
 
 # display grants for a whole mysql database
 mygrants()

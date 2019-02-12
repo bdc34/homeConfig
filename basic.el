@@ -86,3 +86,6 @@
   kept-new-versions 6
   kept-old-versions 2
   version-control t)
+
+
+(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)

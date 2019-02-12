@@ -8,7 +8,6 @@
 ;; Unbind Pesky Sleep Button
 (global-unset-key [(control z)])
 (global-unset-key [(control x)(control z)])
-(global-set-key [(control z)] 'undo)
 
 ;(global-set-key (kbd "C-c b") 'some-thing)
 ;(global-set-key (kbd "<f3>") 'some-thing)
@@ -17,20 +16,39 @@
 ;(global-set-key [C-home] 'beginning-of-buffer)   
 ;(global-set-key "^?" 'backwards-delete-char-untabify)
 
-
 ;; Miscellaneous settings
 
-;; highlight current line
-(hl-line-mode)
+;; ansi-term make ctrl-left and crtl-right work
+(with-eval-after-load "term" 
+                      (defun term-send-Cright () (interactive) (term-send-raw-string "\e[1;5C"))
+                      (defun term-send-Cleft  () (interactive) (term-send-raw-string "\e[1;5D"))
+                      (define-key term-raw-map (kbd "C-<right>")      'term-send-Cright)
+                      (define-key term-raw-map (kbd "C-<left>")       'term-send-Cleft))
+
+(global-hl-line-mode)
 
 ;; eval .dir.local files on remote systems
 (setq enable-remote-dir-locals t)
 
 ;; no tab chars in files, spaces only! important for source control 
-;;(setq-default tab-width 4 indent-tabs-mode nil)
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
+(setq-default tab-width 2)
 (defvaralias 'c-basic-offset 'tab-width)
+
+(defun my-setup-indent (n)
+  ;; java/c/c++
+  (setq-local c-basic-offset n)
+  ;; web development
+  (setq-local coffee-tab-width n) ; coffeescript
+  (setq-local javascript-indent-level n) ; javascript-mode
+  (setq-default js-indent-level n) ; js-mode
+  (setq-default js2-basic-offset n) ; js2-mode, in latest js2-mode, it's alias of js-indent-level
+  (setq-default web-mode-markup-indent-offset n) ; web-mode, html tag in html file
+  (setq-local web-mode-css-indent-offset n) ; web-mode, css in html file
+  (setq-local web-mode-code-indent-offset n) ; web-mode, js code in html file
+  (setq-local css-indent-offset n) ; css-mode
+)
+(my-setup-indent 2)
 
 ;;Don't try to truncate lines in partial width windws
 (setq truncate-partial-width-windows nil) 
@@ -49,8 +67,8 @@
               (local-set-key (kbd "C-x k") 'server-edit))))
 
 (server-start);; start server for emacsclient
-              
 
+(setq dired-auto-revert-buffer 1)
 ;;
 ;; * Tramp, SSH and SUDO *
 ;;
@@ -104,3 +122,44 @@
 
 (add-hook 'find-file-hooks 'my-tramp-header-line-function)
 (add-hook 'dired-mode-hook 'my-tramp-header-line-function)
+
+;; Don't backup tramp files. see tramp INFO 4.18
+(add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
+
+;; Don't make tramp history files everywhere
+(require 'tramp-cache)
+(setq tramp-persistency-file-name "/tmp/tramp_connection_history")
+
+;;Get rid of the .tamp_history files
+(setq tramp-histfile-override t )
+
+(require 'ox-reveal)
+(setq Org-Reveal-root "file:///home/bdc34/slides/reveal.js")
+(setq Org-Reveal-title-slide nil)
+
+(defun toggle-window-split ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+         (next-win-buffer (window-buffer (next-window)))
+         (this-win-edges (window-edges (selected-window)))
+         (next-win-edges (window-edges (next-window)))
+         (this-win-2nd (not (and (<= (car this-win-edges)
+                     (car next-win-edges))
+                     (<= (cadr this-win-edges)
+                     (cadr next-win-edges)))))
+         (splitter
+          (if (= (car this-win-edges)
+             (car (window-edges (next-window))))
+          'split-window-horizontally
+        'split-window-vertically)))
+    (delete-other-windows)
+    (let ((first-win (selected-window)))
+      (funcall splitter)
+      (if this-win-2nd (other-window 1))
+      (set-window-buffer (selected-window) this-win-buffer)
+      (set-window-buffer (next-window) next-win-buffer)
+      (select-window first-win)
+      (if this-win-2nd (other-window 1))))))
+
+(global-set-key (kbd "C-x |") 'toggle-window-split)

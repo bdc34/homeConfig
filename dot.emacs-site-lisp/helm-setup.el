@@ -29,8 +29,11 @@
 
 (global-set-key (kbd "M-x") 'helm-M-x)
 (setq helm-M-x-fuzzy-match t) ;; optional fuzzy matching for helm-M-x
+(setq helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match    t)
 
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
+;(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x C-f") 'ido-find-file)
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
@@ -47,21 +50,21 @@
 ;;                        'old-ff
 ;;                        helm-source-find-files)
 
-(define-key helm-map (kbd "C-f")
-  (lambda () (interactive)
-    (helm-quit-and-execute-action 'old-ff)))
+;; (define-key helm-map (kbd "C-f")
+;;   (lambda () (interactive)
+;;     (helm-quit-and-execute-action 'old-ff)))
   
 ;; set C-c C-l to 
-(require 'helm-eshell)
-(add-hook 'eshell-mode-hook
-          #'(lambda ()
-              (define-key eshell-mode-map (kbd "C-c C-l")  'helm-eshell-history)))
+;; (require 'helm-eshell)
+;; (add-hook 'eshell-mode-hook
+;;           #'(lambda ()
+;;               (define-key eshell-mode-map (kbd "C-c C-l")  'helm-eshell-history)))
 
-(define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
+;; (define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
 
-(helm-mode 1)
+;(helm-mode 1)
 
 (setq projectile-enable-caching t)
-(setq projectile-completion-system 'helm)
 (projectile-global-mode)
+(setq projectile-completion-system 'helm)
 (helm-projectile-on)

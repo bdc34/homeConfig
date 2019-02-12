@@ -1,0 +1,49 @@
+Xft.dpi: 185
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+XTerm*metaSendsEscape: true
+XTerm*renderFont: true
+XTerm*faceName: DejaVu Sans Mono
+XTerm*faceSize: 10
+XTerm*backarrowKey: false
+XTerm.ttyModes: erase ^?
+XTerm*scrollBar: true
+XTerm*scrollbar.width: 8
+
+UXTerm*metaSendsEscape: true
+UXTerm*renderFont: true
+UXTerm*faceName: DejaVu Sans Mono
+UXTerm*faceSize: 10
+UXTerm*backarrowKey: false
+UXTerm.ttyModes: erase ^?
+UXTerm*scrollBar: true
+UXTerm*scrollbar.width: 8
+
+UXTerm*termName: rxvt-256color
+UXTerm*xftAntialias: true
+UXTerm*background: #3f3f3f
+UXTerm*foreground: #dcdccc
+UXTerm*cursorColor: #aaaaaa
+UXTerm*colorUL: #366060
+UXTerm*underlineColor: #dfaf8f
+UXTerm*color0: #3f3f3f
+UXTerm*color1: #cc9393
+UXTerm*color2: #7f9f7f
+UXTerm*color3: #d0bf8f
+UXTerm*color4: #6ca0a3
+UXTerm*color5: #dc8cc3
+UXTerm*color6: #93e0e3
+UXTerm*color7: #dcdccc
+UXTerm*color8: #000000
+UXTerm*color9: #dca3a3
+UXTerm*color10: #bfebbf
+UXTerm*color11: #f0dfaf
+UXTerm*color12: #8cd0d3
+UXTerm*color13: #dc8cc3
+UXTerm*color14: #93e0e3
+UXTerm*color15: #ffffff
