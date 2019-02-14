@@ -3,39 +3,69 @@ HashKnownHosts no
      
 Host bdc34-dev
      HostName bdc34-dev.library.cornell.edu
+     ForwardX11 yes
+     ForwardAgent yes
+     
 Host mhl10-dev
      HostName mhl10-dev.library.cornell.edu
+     ForwardX11 yes
+     ForwardAgent yes
      
 Host arxiv-dev
      HostName arxiv-dev.library.cornell.edu
+     ForwardX11 yes
+     ForwardAgent yes
+     
 Host arxiv-res res
      HostName arxiv-res.library.cornell.edu
+     ForwardX11 yes
+     ForwardAgent yes
+     
 Host arxiv-beta
      HostName arxiv-beta.library.cornell.edu
+     ForwardX11 yes
+     ForwardAgent yes
+     
 Host arxiv-nexus nexus
      HostName arxiv-nexus.library.cornell.edu
+     ForwardX11 yes
+     ForwardAgent yes
+     
 Host arxiv-web1 web1
      HostName arxiv-web1.library.cornell.edu
+     ForwardX11 yes
+     ForwardAgent yes
+     
 Host arxiv-web2 web2
      HostName arxiv-web2.library.cornell.edu
+     ForwardX11 yes
+     ForwardAgent yes
+     
 Host arxiv-web3 web3
      HostName arxiv-web3.library.cornell.edu
+     ForwardX11 yes
+     ForwardAgent yes
+
+Host arxiv-web4 web4
+     HostName arxiv-web4.library.cornell.edu
+     ForwardX11 yes
+     ForwardAgent yes
+
 Host arxiv-export1 export1
      HostName arxiv-export1.library.cornell.edu
+     ForwardX11 yes
+     ForwardAgent yes
+     
 Host arxiv-export2 export2
      HostName arxiv-export2.library.cornell.edu
+     ForwardX11 yes
+     ForwardAgent yes
+     
 Host arxiv-export3 export3
      HostName arxiv-export3.library.cornell.edu
-
-Host cular
-     HostName cular.library.cornell.edu
-Host cular-dev
-     HostName cular-dev.library.cornell.edu
-Host cular-follower merit
-     HostName mrt-cular-01.library.cornell.edu
-Host cular-ingest
-     HostName cular-ingest.library.cornell.edu
-
+     ForwardX11 yes
+     ForwardAgent yes
+     
 Host *.cornell.edu
      ForwardX11 yes
      ForwardAgent yes

@@ -1,3 +1,4 @@
+
 (use-package ag
   :ensure t
   :commands (ag ag-regexp ag-project))
@@ -16,10 +17,10 @@
 	      ("M-K" . helm-next-page)
 	      ("M-h" . helm-beginning-of-buffer)
 	      ("M-H" . helm-end-of-buffer)
-          ("<tab>" . helm-execute-persistent-action) ; rebind tab to run persistent action
+        ("<tab>" . helm-execute-persistent-action) ; rebind tab to run persistent action
 	      ("C-i" . helm-execute-persistent-action) ; make TAB works in terminal
-          ("C-z"  . helm-select-action) ; list actions using C-z
-          )
+        ("C-z"  . helm-select-action) ; list actions using C-z
+        )
   :init (progn
         ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
         ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
@@ -28,19 +29,48 @@
         (global-unset-key (kbd "C-x c"))
         )
   :config (progn
-
-
-        (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+        (setq helm-split-window-in-side-p         t ; open helm buffer inside current window, not occupy whole other window
 	          helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
 	          helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
 	          helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
 	          helm-move-to-line-cycle-in-source     t ; cycle in source list  
 	          helm-ff-file-name-history-use-recentf t)
-        (setq helm-M-x-fuzzy-match t) ;; optional fuzzy matching for helm-M-x
-        (setq helm-buffers-fuzzy-matching t
-	          helm-recentf-fuzzy-match    t)
-    (helm-mode 1)
-        ))
+
+        ;; from https://www.reddit.com/r/emacs/comments/3o7a9i/using_helm_with_flx_for_better_fuzzy_matching/
+        ;; make sure you have flx installed
+        (require 'flx)
+        ;; this is a bit hackish, ATM, redefining functions I don't own
+        (defvar helm-flx-cache (flx-make-string-cache #'flx-get-heatmap-str))
+        
+        (defun helm-score-candidate-for-pattern (candidate pattern)
+          (or (car (flx-score candidate pattern helm-flx-cache)) 0))
+
+        (defun helm-fuzzy-default-highlight-match (candidate)
+          (let* ((pair (and (consp candidate) candidate))
+                 (display (if pair (car pair) candidate))
+                 (real (cdr pair)))
+            (with-temp-buffer
+              (insert display)
+              (goto-char (point-min))
+              (if (string-match-p " " helm-pattern)
+                  (cl-loop with pattern = (split-string helm-pattern)
+                           for p in pattern
+                           do (when (search-forward p nil t)
+                                (add-text-properties
+                                 (match-beginning 0) (match-end 0) '(face helm-match))))
+                (cl-loop with pattern = (cdr (flx-score display
+                                                        helm-pattern helm-flx-cache))
+                         for index in pattern
+                         do (add-text-properties
+                             (1+ index) (+ 2 index) '(face helm-match))))
+              (setq display (buffer-string)))
+            (if real (cons display real) display)))
+        
+        (setq helm-mode-fuzzy-match t)
+        ;; (setq helm-M-x-fuzzy-match t) ;; optional fuzzy matching for helm-M-x
+        ;; (setq helm-buffers-fuzzy-matching t
+	      ;;     helm-recentf-fuzzy-match    t)
+    (helm-mode 1)))
 
 
 (use-package projectile

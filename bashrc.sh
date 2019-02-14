@@ -1,23 +1,20 @@
 # .bashrc 
 # This is run for interactive shells and for logins by .profile
 
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
 # the default umask is set in /etc/profile; for setting the umask
 # for ssh logins, install and configure the libpam-umask package.
 umask 002
 export RAN_BASHRC=`date`;
 
-# # Change pdsh ssh args to forward ssh agent for doing git pulls
-# export PDSH_SSH_ARGS="-2 -A -x -l%u %h" 
-# # PDSH module to use by defulat
-# export PDSH_RCMD_TYPE="ssh"
-
-# # server groups for use with pdsh -w $wxyz
-# export warxivprod="arxiv-export,arxiv-export[1-2],arxiv-web[1-3],arxiv-db,arxiv-db[2-3],arxiv-nexus,arxiv-res"
-# export warxivdev="arxiv-dev,arxiv-beta1"
-# export warxivall="$warxivdev,$warxivprod"
-# export wcularprod="cular,cular-follower"
-# export wcularall="$wcularprod,cular-dev"
-# export wcornellall="bdc34-dev,$wcularall,$warxivall"
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -27,6 +24,9 @@ PROMPT_COMMAND='history -a;history -n'
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -34,10 +34,8 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
-    xterm) color_prompt=yes;;
+    xterm|xterm-color|*-256color) color_prompt=yes;;
 esac
-
 
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
@@ -95,13 +93,6 @@ PS1="$CHROOT$PUSER$PHOST: \W\$ "
 
 unset color_prompt
 
-if [ -e /opt_arxiv/perl ]; then
-  export PATH=/opt_arxiv/perl/bin:$PATH
-fi
-if [ -e /opt/node ]; then
-  export PATH=/opt/node/bin:$PATH
-fi
-
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
@@ -131,19 +122,9 @@ alias l='ls -CF'
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
-
-# Change pdsh ssh args to forward ssh agent for doing git pulls
-export PDSH_SSH_ARGS="-2 -A -x -l%u %h" 
-# PDSH module to use by defulat
-export PDSH_RCMD_TYPE="ssh"
-# Server groups for use with PDSH -w
-export warxivprod="arxiv-export[1-3],arxiv-web[1-4],arxiv-db,arxiv-db[2-3],arxiv-nexus"
-export warxivdev="arxiv-dev,arxiv-beta1"
-export warxivall="$warxivdev,$warxivprod"
-export wcornellall="bdc34-dev,$warxivall"
+#if [ -f /etc/bash_completion ]; then
+#    . /etc/bash_completion
+#fi
 
 # If this is an arXiv machine then add some extra stuff
 if [ "$CIT_SERVER" == 'yes' ] && [ $PROMPT_H =~ 'arxiv' ]   ; then

@@ -14,6 +14,12 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
 (package-initialize)
 
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/"))
@@ -21,7 +27,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/prog-modes/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/X/"))
 
-(require 'bind-key)
+;;(require 'bind-key)
 
 (if (>= emacs-major-version 24)
     (load-file( expand-file-name "~/.emacs-site-lisp/emacs24.el" "~")))
@@ -36,24 +42,6 @@
 (require 'cl)
 
 (global-auto-revert-mode)
-
-;; Trying out visible-mark mode
-(defface bdc-visible-mark-face1
-  '((((type tty) (class mono)))
-    (t (:underline
-        (:color "purple" :style line)))) "Brian's face for visible-mark"  )
-(defface bdc-visible-mark-face2
-  '((((type tty) (class mono)))
-    (t (:underline
-        (:color "MediumPurple3" :style line)))) "Brian's face for visible-mark 2")
-(defface bdc-visible-mark-face3
-  '((((type tty) (class mono)))
-    (t (:underline
-        (:color "MediumPurple4" :style line))))   "Brian's face for visible-mark 3")
-(setq visible-mark-faces `(bdc-visible-mark-face1 bdc-visible-mark-face2 bdc-visible-mark-face3))
-(setq visible-mark-max 3 )
-(require 'visible-mark)
-(global-visible-mark-mode 1)
 
 (set-face-font 'default "-1ASC-Droid Sans Mono Slashed-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1" )
 ;;(add-hook 'helm-mode-hook (lambda () (setq buffer-face-mode-face '(:family "Droid Sans"))))
@@ -74,6 +62,7 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
+ '(beacon-color 0.6)
  '(browse-url-browser-function (quote browse-url-chrome))
  '(compilation-message-face (quote default))
  '(custom-safe-themes
@@ -114,7 +103,7 @@
  '(package-check-signature nil)
  '(package-selected-packages
    (quote
-    (php-mode sphinx-doc flycheck-mypy flycheck-pycheckers jinja2-mode company-quickhelp dimmer pipenv org-jira eslint-fix magit yasnippet yaml-mode async dash bind-key diminish typescript-mode s epl pkg-info seq flycheck hcl-mode tablist simple-httpd skewer-mode deferred request-deferred pythonic popup markdown-mode log4e json-snatcher json-reformat highlight-indentation gntp flx auto-complete pyvenv ivy ht helm-core find-file-in-project f pyenv-mode projectile helm ein py-autopep8 docker-compose-mode rjsx-mode web-mode js2-mode terraform-mode elpy docker docker-tramp dockerfile-mode undo-tree company tide zenburn-theme websocket web-beautify use-package ttl-mode tt-mode smartparens request oauth2 multi-term markdown-toc lua-mode json-mode imenus ido-better-flex flymake flx-ido ewmctrl emojify circe alert)))
+    (ivy-hydra helm-taskswitch beacon beacon-mode vlf php-mode sphinx-doc flycheck-mypy flycheck-pycheckers jinja2-mode company-quickhelp dimmer pipenv org-jira eslint-fix magit yasnippet yaml-mode async dash bind-key diminish typescript-mode s epl pkg-info seq flycheck hcl-mode tablist simple-httpd skewer-mode deferred request-deferred pythonic popup markdown-mode log4e json-snatcher json-reformat highlight-indentation gntp flx auto-complete pyvenv ivy ht helm-core find-file-in-project f pyenv-mode projectile helm ein py-autopep8 docker-compose-mode rjsx-mode web-mode js2-mode terraform-mode elpy docker docker-tramp dockerfile-mode undo-tree company tide zenburn-theme websocket web-beautify use-package ttl-mode tt-mode smartparens request oauth2 multi-term markdown-toc lua-mode json-mode imenus ido-better-flex flymake flx-ido ewmctrl emojify circe alert)))
  '(safe-local-variable-values (quote ((typescript-indent-level . 2))))
  '(syslog-debug-face
    (quote
