@@ -133,10 +133,6 @@
 ;;Get rid of the .tamp_history files
 (setq tramp-histfile-override t )
 
-(require 'ox-reveal)
-(setq Org-Reveal-root "file:///home/bdc34/slides/reveal.js")
-(setq Org-Reveal-title-slide nil)
-
 (defun toggle-window-split ()
   (interactive)
   (if (= (count-windows) 2)

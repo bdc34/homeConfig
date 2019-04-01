@@ -93,17 +93,14 @@
      ("#8B2C02" . 70)
      ("#93115C" . 85)
      ("#073642" . 100))))
- '(ido-enable-flex-matching t)
- '(ido-file-extensions-order (quote (".ts")))
- '(ido-mode (quote file) nil (ido))
  '(json-reformat:indent-width 2)
  '(magit-diff-use-overlays nil)
  '(markdown-command "/usr/local/bin/kramdown --input GFM")
- '(org-agenda-files (quote ("~/Dropbox/notes arxiv.org")))
+ '(org-agenda-files nil)
  '(package-check-signature nil)
  '(package-selected-packages
    (quote
-    (ivy-hydra helm-taskswitch beacon beacon-mode vlf php-mode sphinx-doc flycheck-mypy flycheck-pycheckers jinja2-mode company-quickhelp dimmer pipenv org-jira eslint-fix magit yasnippet yaml-mode async dash bind-key diminish typescript-mode s epl pkg-info seq flycheck hcl-mode tablist simple-httpd skewer-mode deferred request-deferred pythonic popup markdown-mode log4e json-snatcher json-reformat highlight-indentation gntp flx auto-complete pyvenv ivy ht helm-core find-file-in-project f pyenv-mode projectile helm ein py-autopep8 docker-compose-mode rjsx-mode web-mode js2-mode terraform-mode elpy docker docker-tramp dockerfile-mode undo-tree company tide zenburn-theme websocket web-beautify use-package ttl-mode tt-mode smartparens request oauth2 multi-term markdown-toc lua-mode json-mode imenus ido-better-flex flymake flx-ido ewmctrl emojify circe alert)))
+    (slack counsel-tramp counsel flycheck-package package-lint ivy-hydra helm-taskswitch beacon beacon-mode vlf php-mode sphinx-doc flycheck-mypy flycheck-pycheckers jinja2-mode company-quickhelp dimmer pipenv org-jira eslint-fix magit yasnippet yaml-mode async dash bind-key diminish typescript-mode s epl pkg-info seq flycheck hcl-mode tablist simple-httpd skewer-mode deferred request-deferred pythonic popup markdown-mode log4e json-snatcher json-reformat highlight-indentation gntp flx auto-complete pyvenv ivy ht helm-core find-file-in-project f pyenv-mode projectile helm ein py-autopep8 docker-compose-mode rjsx-mode web-mode js2-mode terraform-mode elpy docker docker-tramp dockerfile-mode undo-tree company tide zenburn-theme websocket web-beautify use-package ttl-mode tt-mode smartparens request oauth2 multi-term markdown-toc lua-mode json-mode imenus ido-better-flex flymake flx-ido ewmctrl emojify circe alert)))
  '(safe-local-variable-values (quote ((typescript-indent-level . 2))))
  '(syslog-debug-face
    (quote

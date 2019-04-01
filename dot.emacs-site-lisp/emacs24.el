@@ -2,17 +2,16 @@
 
 (require 'package)
 (setq package-enable-at-startup nil)
-;(add-to-list 'package-archives
-                                        ;             '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/")
-             t)
+             '("melpa" . "https://melpa.org/packages/"))
+;(add-to-list 'package-archives
+;             '("melpa-stable" . "https://stable.melpa.org/packages/")
+;             t)
 (package-initialize)
 
 (eval-when-compile
   (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/use-package"))
   (require 'use-package))
-
 
 ;; https://camdez.com/blog/2015/04/03/switching-to-melpa-stable/
 (setq my/packages '(ag alert beacon circe company-quickhelp diminish
@@ -35,7 +34,7 @@ with-editor async yaml-mode yasnippet zenburn-theme))
 ;;  ewmctrl flycheck-mypy ido-better-flex pyenv-mode pipenv tt-mode ttl-mode
 
 (defun my/install-packages ()
-  "Ensure the packages I use are installed. See `my/packages'."
+  "Ensure the packages I use are installed.  See `my/packages'."
   (interactive)
   (let ((missing-packages (cl-remove-if #'package-installed-p my/packages)))
     (when missing-packages
@@ -54,19 +53,52 @@ with-editor async yaml-mode yasnippet zenburn-theme))
 
 
 ;; Helm for many things
+;; Especally select buffers
 (load-file (expand-file-name ".emacs-site-lisp/helm-setup.el" "~"))
 
+;; I used IDO fo a couple years for find-file and it
+;; was fine. I liked some things about it once I got use to it.
+;; I liked C-d to open a file, I liked C-f to fall back to nomrmal find-file.
+;; But I liked the space for search in ivy better.
 ;; but ido-mode for find-file
-(require 'ido)
-(ido-mode t)
-(custom-set-variables
- '(ido-enable-flex-matching t)
- '(ido-file-extensions-order (quote (".ts"))) ;; complete to typescript instead of js
- '(ido-mode 'file)
-)
+;;(require 'ido)
+;;(ido-mode t)
+;;(custom-set-variables
+;; '(ido-enable-flex-matching t)
+;; '(ido-file-extensions-order (quote (".ts"))) ;; complete to typescript instead of js
+;; '(ido-mode 'file)
+;;)
 
-(if (and (string= (system-name) "bdc34-laptop") (window-system))
-    (load-file (expand-file-name "~/.emacs-site-lisp/helm-taskswitch.el")))
+;; Tried ivy as a replacement for ido for a couple months
+;; I liked the way space worked in searches.
+;; I didn't like a lot of the other stuff such as how tabs worked
+;; and I didn't take time to get use to it.
+;; (use-package ivy
+;;   :ensure t
+;;   :init
+;;   (setq ivy-use-virtual-buffers t)
+;; ;  (setq enable-recursive-minibuffers t)
+;;   :bind
+;;   (;("C-s" . swiper)
+;;    ;("M-x") . counsel-M-x)
+;;    ("C-c C-r" . ivy-resume)
+;;    ("<f6>" . ivy-resume)
+;;    ("C-x C-f" . counsel-find-file)
+;;    ("C-c g" . counsel-git)
+;;    ("C-c j" . counsel-git-grep)
+;;    ("C-c k" . counsel-ag)
+;;    ("C-x l" . counsel-locate))
+;;   :config
+;;   (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
+
+;; (use-package ivy-prescient
+;;   :ensure t
+;;   :after (ivy)
+;;   :config
+;;   (prescient-persist-mode)
+;;   (ivy-prescient-mode))
+
+(load-file (expand-file-name "~/.emacs-site-lisp/org-setup.el"))
 
 (use-package magit-gh-pulls
   :ensure t)
@@ -85,13 +117,15 @@ with-editor async yaml-mode yasnippet zenburn-theme))
      :after (doom-modeline)
      :config (progn
     ;;           (load-theme 'doom-one t)
-               (doom-themes-org-config)))
+               ;(doom-themes-org-config)
+               ;; undo somethings in doom-themes-org-config
+               (setq org-hide-leading-stars t
+                     org-hide-leading-stars-before-indent-mode t)))
    )
 
-
-
-;(require 'spaceline-config)
-;(spaceline-spacemacs-theme)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
 
 (use-package vlf :ensure t) ;; View Large Files
 
@@ -102,5 +136,6 @@ with-editor async yaml-mode yasnippet zenburn-theme))
   :ensure t
   :config (beacon-mode 1))
 
-
-
+(when (and (string= (system-name) "bdc34-laptop") (window-system))
+  (load-file (expand-file-name "~/.emacs-site-lisp/helm-taskswitch.el"))
+  (load-file (expand-file-name "~/.emacs-site-lisp/slack-setup.el")))

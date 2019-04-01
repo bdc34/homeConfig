@@ -36,41 +36,41 @@
 	          helm-move-to-line-cycle-in-source     t ; cycle in source list  
 	          helm-ff-file-name-history-use-recentf t)
 
-        ;; from https://www.reddit.com/r/emacs/comments/3o7a9i/using_helm_with_flx_for_better_fuzzy_matching/
-        ;; make sure you have flx installed
-        (require 'flx)
-        ;; this is a bit hackish, ATM, redefining functions I don't own
-        (defvar helm-flx-cache (flx-make-string-cache #'flx-get-heatmap-str))
+        ;; ;; from https://www.reddit.com/r/emacs/comments/3o7a9i/using_helm_with_flx_for_better_fuzzy_matching/
+        ;; ;; make sure you have flx installed
+        ;; (require 'flx)
+        ;; ;; this is a bit hackish, ATM, redefining functions I don't own
+        ;; (defvar helm-flx-cache (flx-make-string-cache #'flx-get-heatmap-str))
         
-        (defun helm-score-candidate-for-pattern (candidate pattern)
-          (or (car (flx-score candidate pattern helm-flx-cache)) 0))
+        ;; (defun helm-score-candidate-for-pattern (candidate pattern)
+        ;;   (or (car (flx-score candidate pattern helm-flx-cache)) 0))
 
-        (defun helm-fuzzy-default-highlight-match (candidate)
-          (let* ((pair (and (consp candidate) candidate))
-                 (display (if pair (car pair) candidate))
-                 (real (cdr pair)))
-            (with-temp-buffer
-              (insert display)
-              (goto-char (point-min))
-              (if (string-match-p " " helm-pattern)
-                  (cl-loop with pattern = (split-string helm-pattern)
-                           for p in pattern
-                           do (when (search-forward p nil t)
-                                (add-text-properties
-                                 (match-beginning 0) (match-end 0) '(face helm-match))))
-                (cl-loop with pattern = (cdr (flx-score display
-                                                        helm-pattern helm-flx-cache))
-                         for index in pattern
-                         do (add-text-properties
-                             (1+ index) (+ 2 index) '(face helm-match))))
-              (setq display (buffer-string)))
-            (if real (cons display real) display)))
+        ;; (defun helm-fuzzy-default-highlight-match (candidate)
+        ;;   (let* ((pair (and (consp candidate) candidate))
+        ;;          (display (if pair (car pair) candidate))
+        ;;          (real (cdr pair)))
+        ;;     (with-temp-buffer
+        ;;       (insert display)
+        ;;       (goto-char (point-min))
+        ;;       (if (string-match-p " " helm-pattern)
+        ;;           (cl-loop with pattern = (split-string helm-pattern)
+        ;;                    for p in pattern
+        ;;                    do (when (search-forward p nil t)
+        ;;                         (add-text-properties
+        ;;                          (match-beginning 0) (match-end 0) '(face helm-match))))
+        ;;         (cl-loop with pattern = (cdr (flx-score display
+        ;;                                                 helm-pattern helm-flx-cache))
+        ;;                  for index in pattern
+        ;;                  do (add-text-properties
+        ;;                      (1+ index) (+ 2 index) '(face helm-match))))
+        ;;       (setq display (buffer-string)))
+        ;;     (if real (cons display real) display)))
         
-        (setq helm-mode-fuzzy-match t)
-        ;; (setq helm-M-x-fuzzy-match t) ;; optional fuzzy matching for helm-M-x
-        ;; (setq helm-buffers-fuzzy-matching t
-	      ;;     helm-recentf-fuzzy-match    t)
-    (helm-mode 1)))
+;;        (setq helm-mode-fuzzy-match t)
+;;        (setq helm-M-x-fuzzy-match t) ;; optional fuzzy matching for helm-M-x
+;;        (setq helm-buffers-fuzzy-matching t)
+;;	      (setq helm-recentf-fuzzy-match    t)
+        ))
 
 
 (use-package projectile
@@ -99,17 +99,12 @@
   :bind ("M-p" . helm-projectile-ag)
   :commands (helm-ag helm-projectile-ag)
   :init (setq helm-ag-insert-at-point 'symbol
-	      helm-ag-command-option "--path-to-ignore ~/.agignore"))
+;;              helm-ag-command-option "--path-to-ignore ~/.agignore"
+              helm-grep-ag-command "ag --line-numbers -S --hidden --color --color-match '31;43' --nogroup %s %s %s"
+              helm-grep-ag-pipe-cmd-switches '("--color-match '31;43'")))
 
 (when (executable-find "curl")
   (setq helm-google-suggest-use-curl-p t))
-
-(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-      helm-move-to-line-cycle-in-source     t ; cycle in source list  
-      helm-ff-file-name-history-use-recentf t)
 
 ;;
 ;; Set up keys to replace normal emacs features with helm features
@@ -119,9 +114,6 @@
 (setq helm-M-x-fuzzy-match t) ;; optional fuzzy matching for helm-M-x
 (setq helm-buffers-fuzzy-matching t
       helm-recentf-fuzzy-match    t)
-
-;(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x C-f") 'ido-find-file)
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 

@@ -35,6 +35,9 @@
             (define-key dired-mode-map "k" 'dired-previous-line)
             (define-key dired-mode-map "h" 'dired-up-directory)))
 
+;; get compile-mode like error jumping in term
+(add-hook 'term-mode-hook 'compilation-shell-minor-mode)
+
 (display-time)
 
 (setq line-number-mode t)
