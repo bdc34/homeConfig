@@ -1,4 +1,5 @@
 
+
 (use-package ag
   :ensure t
   :commands (ag ag-regexp ag-project))
@@ -10,31 +11,31 @@
          ("C-x f" . helm-recentf)
          ("M-y" . helm-show-kill-ring)
          ("C-x b" . helm-buffers-list))
-  :bind (:map helm-map
-	      ("M-i" . helm-previous-line)
-	      ("M-k" . helm-next-line)
-	      ("M-I" . helm-previous-page)
-	      ("M-K" . helm-next-page)
-	      ("M-h" . helm-beginning-of-buffer)
-	      ("M-H" . helm-end-of-buffer)
-        ("<tab>" . helm-execute-persistent-action) ; rebind tab to run persistent action
-	      ("C-i" . helm-execute-persistent-action) ; make TAB works in terminal
-        ("C-z"  . helm-select-action) ; list actions using C-z
-        )
-  :init (progn
-        ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-        ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-        ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-        (global-set-key (kbd "C-c h") 'helm-command-prefix)
-        (global-unset-key (kbd "C-x c"))
-        )
-  :config (progn
-        (setq helm-split-window-in-side-p         t ; open helm buffer inside current window, not occupy whole other window
-	          helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-	          helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-	          helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-	          helm-move-to-line-cycle-in-source     t ; cycle in source list  
-	          helm-ff-file-name-history-use-recentf t)
+  ;; :bind (:map helm-map
+	;;       ("M-i" . helm-previous-line)
+	;;       ("M-k" . helm-next-line)
+	;;       ("M-I" . helm-previous-page)
+	;;       ("M-K" . helm-next-page)
+	;;       ("M-h" . helm-beginning-of-buffer)
+	;;       ("M-H" . helm-end-of-buffer)
+  ;;       ("<tab>" . helm-execute-persistent-action) ; rebind tab to run persistent action
+	;;       ("C-i" . helm-execute-persistent-action) ; make TAB works in terminal
+  ;;       ("C-z"  . helm-select-action) ; list actions using C-z
+  ;;       )
+  :init 
+  ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+  ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+  ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+  (global-set-key (kbd "C-c h") 'helm-command-prefix)
+  (global-unset-key (kbd "C-x c"))        
+  :config 
+  (setq helm-echo-input-in-header-line        t ; show input in helm buffer
+        helm-split-window-in-side-p           t ; helm in same window
+        helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+        helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+        helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+        helm-move-to-line-cycle-in-source     t ; cycle in source list
+        helm-ff-file-name-history-use-recentf t))
 
         ;; ;; from https://www.reddit.com/r/emacs/comments/3o7a9i/using_helm_with_flx_for_better_fuzzy_matching/
         ;; ;; make sure you have flx installed
@@ -70,7 +71,34 @@
 ;;        (setq helm-M-x-fuzzy-match t) ;; optional fuzzy matching for helm-M-x
 ;;        (setq helm-buffers-fuzzy-matching t)
 ;;	      (setq helm-recentf-fuzzy-match    t)
-        ))
+;;        ))
+
+;; (use-package recentf
+;;   :ensure t
+;;   :config
+;;   (setq recentf-auto-cleanup 'never) ;; Prevent auto-cleanup during tramp use
+;;   (run-at-time nil (* 5 60) 'recentf-save-list) ;; save list every 5 min
+;;   (setq recentf-max-menu-items 20)
+;;   (setq recentf-max-saved-items 50)
+;;   (defun undo-kill-buffer (arg)
+;;     "Re-open the last buffer killed.  With ARG, re-open the nth buffer."
+;;     (interactive "p")
+;;     (let ((recently-killed-list (copy-sequence recentf-list))
+;;           (buffer-files-list
+;;            (delq nil (mapcar (lambda (buf)
+;;                                (when (buffer-file-name buf)
+;;                                  (expand-file-name (buffer-file-name buf)))) (buffer-list)))))
+;;       (mapc
+;;        (lambda (buf-file)
+;;          (setq recently-killed-list
+;;                (delq buf-file recently-killed-list)))
+;;        buffer-files-list)
+;;       (let ((killed-file (if arg (nth arg recently-killed-list)
+;;                            (car recently-killed-list))))
+;;         (if killed-file (find-file killed-file)
+;;           (message "All files on recentf list already open")))))
+;;   (bind-key "C-S-t" 'undo-kill-buffer)
+;;   )
 
 
 (use-package projectile
@@ -134,7 +162,7 @@
 ;;   (lambda () (interactive)
 ;;     (helm-quit-and-execute-action 'old-ff)))
   
-;; set C-c C-l to 
+;; set C-c C-l to
 ;; (require 'helm-eshell)
 ;; (add-hook 'eshell-mode-hook
 ;;           #'(lambda ()
@@ -148,3 +176,5 @@
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
+
+;;; helm-setup.el ends here

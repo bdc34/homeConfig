@@ -9,7 +9,7 @@
 ;; Perl config
 (defalias 'perl-mode 'cperl-mode)
 (require 'inf-perl)
-;; (setq cperl-indent-level 2)
+(setq cperl-indent-level 4)
 ;; (setq cperl-brace-offset 0)
 ;; (setq cperl-continued-brace-offset -2)
 ;; (setq cperl-label-offset -2)
@@ -89,12 +89,56 @@
   (set (make-local-variable 'company-idle-delay .15))
   (set (make-local-variable 'company-minimum-prefix-length 0)))
 
-(require 'web-mode)
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+
+(use-package web-mode
+  :ensure t
+  :mode
+  (("\\.erb\\'" . web-mode)
+   ("\\.js\\'" . web-mode)
+   ("\\.jsx\\'" . web-mode)
+   ("\\.tsx\\'" . web-mode)
+   ("\\.json\\'" . web-mode)
+   ("\\.css\\'" . web-mode)
+   ;; TODO: Fix flycheck in order to use web-mode with .scss files
+   ;; ("\\.scss\\'" . web-mode)
+   ("\\.less\\'" . web-mode)
+   ("\\.html\\'" . web-mode)
+   ("\\.tpl\\'" . web-mode)
+   ("\\.hbs\\'" . web-mode))
+  :custom
+  ;; Some from https://github.com/fxbois/web-mode/issues/872#issue-219357898
+  ;; (web-mode-markup-indent-offset 4)
+  ;; (web-mode-css-indent-offset 4)
+  ;; (web-mode-code-indent-offset 4)
+  ;; (web-mode-script-padding 4)
+  ;; (web-mode-attr-indent-offset 4)
+  (web-mode-enable-css-colorization t)
+  (web-mode-enable-auto-quoting nil)
+  (web-mode-enable-current-element-highlight t)
+
+  ;; Indent inline JS/CSS within HTML
+  ;; https://stackoverflow.com/a/36745155/3516664
+  ;; (web-mode-script-padding 4)
+  ;; (web-mode-style-padding 4)
+  ;; (web-mode-block-padding 4)
+  (web-mode-comment-formats
+   '(("java"       . "/*")
+     ("javascript" . "//")
+     ("php"        . "/*")
+     ))
+  :config
+  (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-quotes" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil))
+  (add-to-list 'web-mode-indentation-params '("case-extra-offset" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil))
   (add-hook 'web-mode-hook
             (lambda ()
               (when (string-equal "tsx" (file-name-extension buffer-file-name))
-                (setup-tide-mode))))
+                (setup-tide-mode)))))
+  
 ;; enable typescript-tslint checker
 (flycheck-add-mode 'typescript-tslint 'web-mode)
 (flycheck-add-mode 'typescript-tslint 'tide-mode)
@@ -116,6 +160,59 @@
 
 
 ;; Python
+;; http://rakan.me/emacs/python-dev-with-emacs-and-pyenv/
+
+(use-package elpy
+    :init
+    (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+    :config
+    (setq elpy-rpc-backend "jedi"))
+
+
+(use-package python
+  :mode ("\\.py" . python-mode)
+  :config
+  (setq python-indent-offset 4)
+  (elpy-enable))
+
+
+(use-package pyenv-mode
+  :init
+  (add-to-list 'exec-path "~/.pyenv/shims")
+  (setenv "WORKON_HOME" "~/.pyenv/versions/")
+  :config
+  (pyenv-mode)
+  :bind
+  ("C-x p e" . pyenv-activate-current-project))
+
+(use-package pyenv-mode-auto
+  :after (pyenv-mode))
+
+
+(defun pyenv-activate-current-project ()
+  "Automatically activates pyenv version if .python-version file exists."
+  (interactive)
+  (let ((python-version-directory (locate-dominating-file (buffer-file-name) ".python-version")))
+    (if python-version-directory
+        (let* ((pyenv-version-path (f-expand ".python-version" python-version-directory))
+               (pyenv-current-version (s-trim (f-read-text pyenv-version-path 'utf-8))))
+          (pyenv-mode-set pyenv-current-version)
+          (message (concat "Setting virtualenv to " pyenv-current-version))))))
+
+
+(defvar pyenv-current-version nil nil)
+
+
+(defun pyenv-init()
+  "Initialize pyenv's current version to the global one."
+  (let ((global-pyenv (replace-regexp-in-string "\n" "" (shell-command-to-string "pyenv global"))))
+    (message (concat "Setting pyenv version to " global-pyenv))
+    (pyenv-mode-set global-pyenv)
+    (setq pyenv-current-version global-pyenv)))
+
+(add-hook 'after-init-hook 'pyenv-init)
+
+
 (defun elpy-module-company-quickhelp (command &rest _args)
   "Enable company-quickhelp support for Python.
 Adds doc for completion to company's popup.
@@ -126,14 +223,14 @@ COMMAND is elpy-module command."
     (`buffer-init
      (company-quickhelp-local-mode)) ))
 
-;;(pyenv-mode)
+
+(pyenv-mode)
 (elpy-enable)
 
-(when (require 'flycheck nil t)
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
-
-;;using flycheck instead
-(remove-hook 'elpy-modules 'elpy-module-flymake)
+;;using flycheck instead of flymake
+;; (when (require 'flycheck nil t)
+;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
+;; (remove-hook 'elpy-modules 'elpy-module-flymake)
 
 ;;(add-to-list 'flycheck-disabled-checkers 'python-flake8)
 ;(add-to-list 'flycheck-disabled-checkers 'python-pylint)
@@ -142,3 +239,8 @@ COMMAND is elpy-module command."
 ;;(require 'py-autopep8)
 ;;(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
+(use-package k8s-mode
+ :ensure t
+ :config
+ (setq k8s-search-documentation-browser-function 'browse-url-firefox)
+ :hook (k8s-mode . yas-minor-mode))
