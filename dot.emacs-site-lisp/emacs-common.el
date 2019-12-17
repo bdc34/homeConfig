@@ -32,7 +32,7 @@
 
 ;; no tab chars in files, spaces only! important for source control 
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
+(setq-default tab-width 4)
 (defvaralias 'c-basic-offset 'tab-width)
 
 (defun my-setup-indent (n)
@@ -48,7 +48,7 @@
   (setq-local web-mode-code-indent-offset n) ; web-mode, js code in html file
   (setq-local css-indent-offset n) ; css-mode
 )
-(my-setup-indent 2)
+(my-setup-indent 4)
 
 ;;Don't try to truncate lines in partial width windws
 (setq truncate-partial-width-windows nil) 

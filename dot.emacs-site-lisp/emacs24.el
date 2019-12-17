@@ -29,7 +29,7 @@ deferred rjsx-mode shrink-path f skewer-mode js2-mode simple-httpd
 smartparens sphinx-doc tablist terraform-mode hcl-mode tide flycheck
 seq let-alist pkg-info epl s dash typescript-mode
 undo-tree use-package bind-key vlf web-beautify web-mode websocket
-with-editor async yaml-mode yasnippet zenburn-theme))
+with-editor async yaml-mode yasnippet))
 ;; removed due to not in stable
 ;;  ewmctrl flycheck-mypy ido-better-flex pyenv-mode pipenv tt-mode ttl-mode
 
@@ -43,14 +43,7 @@ with-editor async yaml-mode yasnippet zenburn-theme))
       (mapc #'package-install missing-packages))))
 (my/install-packages)
 
-(use-package zenburn-theme
-  :ensure t
-  :config (progn
-            (load-theme 'zenburn t)
-            (set-cursor-color "coral")))
-
 (setq mouse-autoselect-window nil)
-
 
 ;; Helm for many things
 ;; Especally select buffers
@@ -106,7 +99,6 @@ with-editor async yaml-mode yasnippet zenburn-theme))
 
 
 (when window-system
-   (load-theme 'zenburn t)
    (set-cursor-color "coral")
 
    (use-package doom-modeline
