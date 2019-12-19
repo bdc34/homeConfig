@@ -32,3 +32,11 @@ mkdir -p $HOME/.ssh
 chmod 700 $HOME/.ssh
 chmod 700 $HOME/homeConfig/ssh_config
 ln -f -s $HOME/homeConfig/ssh_config $HOME/.ssh/config
+
+mkdir -p $HOME/.config/awesome
+if [ !-e $home/.config/awesome/rc.lua ]
+   then
+       ln -f -s $HOME/homeConfig/awesome/rc.lua $HOME/.config/awesome/rc.lua
+fi
+
+echo "Still to do: font config, awesome, emacs, helm-taskswitch'

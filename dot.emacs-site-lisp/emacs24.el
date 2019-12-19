@@ -128,6 +128,5 @@ with-editor async yaml-mode yasnippet))
   :ensure t
   :config (beacon-mode 1))
 
-(when (and (string= (system-name) "bdc34-laptop") (window-system))
-  (load-file (expand-file-name "~/.emacs-site-lisp/helm-taskswitch.el"))
-  (load-file (expand-file-name "~/.emacs-site-lisp/slack-setup.el")))
+(when (and (string= (system-name) "bdc34-Latitude-E7450") (window-system))
+  (load-file (expand-file-name "~/.emacs-site-lisp/helm-taskswitch.el")))
