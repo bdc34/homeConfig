@@ -55,8 +55,8 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
---beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/xresources.lua")
+beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.notification_icon_size = 20
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
@@ -591,24 +591,25 @@ client.connect_signal("mouse::enter", function(c)
     end
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- BDC34 Broken?
+-- client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+-- client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
 -- BDC34: Emacs urgent goes to its desktop and brings it to the front
 -- because that's what I need when using emacsclient
-client.connect_signal("property::urgent",
-  function (c)
-     if string.find( c.name, "emacs") then
-        -- change to that screen
-        awful.screen.focus(c.screen)
-        -- change to that desktop
-        if not c:isvisible() then
-           awful.tag.viewonly(c.first_tag)
-        end                                                  
-        --raise and focus client
-        c.minimized = false        
-        client.focus = c
-        c:raise()
-     end
-end)
+-- client.connect_signal("property::urgent",
+--   function (c)
+--      if string.find( c.name, "emacs") then
+--         -- change to that screen
+--         awful.screen.focus(c.screen)
+--         -- change to that desktop
+--         if not c:isvisible() then
+--            awful.tag.viewonly(c.first_tag)
+--         end                                                  
+--         --raise and focus client
+--         c.minimized = false        
+--         client.focus = c
+--         c:raise()
+--      end
+-- end)
