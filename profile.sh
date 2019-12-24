@@ -37,11 +37,16 @@ if [ $? -ne 0 ]; then
 fi
 
 
-
 # stuff like this is just for xterm to protect scp odd use of the shell 
 if [ "$TERM" == 'xterm' ]; then
     if [ -e /usr/local/bin/nicename ]; then
         echo "Who is on this server?" ; who ; echo
         echo "This is an CUL-CIT machine. Nicename: " `nicename` "==" `hostname`
     fi
+fi
+
+if [ -d /home/bdc34/.pyenv ]; then
+    export PATH="/home/bdc34/.pyenv/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
 fi

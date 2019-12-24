@@ -39,4 +39,8 @@ if [ !-e $home/.config/awesome/rc.lua ]
        ln -f -s $HOME/homeConfig/awesome/rc.lua $HOME/.config/awesome/rc.lua
 fi
 
+cd $HOME
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+git clone https://github.com/pyenv/pyenv-virtualenv.git .pyenv/plugins/pyenv-virtualenv
+
 echo "Still to do: font config, awesome, emacs, helm-taskswitch'

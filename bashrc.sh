@@ -162,12 +162,3 @@ if [ -d /opt/perl ]; then
     export PATH="/opt/perl/bin:$PATH"
 fi
 
-if [ -d /home/bdc34/.pyenv ]; then
-
-    export PATH="/home/bdc34/.pyenv/bin:$PATH"
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-fi
-
-
-
