@@ -3,12 +3,47 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/prog-modes/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/elib-1.0"))
 
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;;(add-hook 'after-init-hook 'global-company-mode)
+
+(use-package flycheck
+  :ensure t
+  :if (version<= "24.4" emacs-version)
+  :commands flycheck-mode
+  :init
+  (add-hook 'prog-mode-hook 'flycheck-mode)
+  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  :config
+  (flycheck-add-mode 'typescript-tslint 'web-mode)
+  (flycheck-add-mode 'typescript-tslint 'tide-mode))
+
+(use-package flycheck-tip
+  :ensure t
+  :commands 'flycheck-tip-cycle
+  :after flycheck
+  :bind (:map flycheck-mode-map
+              ("C-c C-n" . flycheck-tip-cycle)))
+
+;; somehow flake8 always seems a mess
+;;(setq-default flycheck-disabled-checkers '(python-flake8))
+(use-package flycheck-pyflakes
+  :ensure t
+  :after flycheck
+  :init
+  ;; If you want to use pyflakes you probably don't want pylint or
+  ;; flake8. To disable those checkers, add the following to your
+  ;; init.el:
+  (add-to-list 'flycheck-disabled-checkers 'python-flake8)
+  (add-to-list 'flycheck-disabled-checkers 'python-pylint)
+  (flycheck-add-next-checker 'python-pyflakes 'python-pycompile))
+
+(use-package flycheck-mypy
+  :ensure t
+  :after flycheck)
 
 ;; Perl config
 (defalias 'perl-mode 'cperl-mode)
-(require 'inf-perl)
+;;(require 'inf-perl)
 (setq cperl-indent-level 4)
 ;; (setq cperl-brace-offset 0)
 ;; (setq cperl-continued-brace-offset -2)
@@ -30,8 +65,8 @@
 ;(require 'eclim)
 ;(global-eclim-mode)
 
-(add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/prog-modes/gradle.el"))
-(require 'gradle)
+;;(add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/prog-modes/gradle.el"))
+;;(require 'gradle)
 
 ;;Displaying compilation error messages in the echo area
 (setq help-at-pt-display-when-idle t)
@@ -79,7 +114,6 @@
 (defun setup-tide-mode ()
   (interactive)
   (tide-setup)
-  (flycheck-mode +1)
   (setqf lycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
@@ -139,9 +173,6 @@
               (when (string-equal "tsx" (file-name-extension buffer-file-name))
                 (setup-tide-mode)))))
   
-;; enable typescript-tslint checker
-(flycheck-add-mode 'typescript-tslint 'web-mode)
-(flycheck-add-mode 'typescript-tslint 'tide-mode)
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
@@ -159,15 +190,24 @@
       (tern-ac-setup)))
 
 
-;; Python
-;; http://rakan.me/emacs/python-dev-with-emacs-and-pyenv/
+(use-package projectile
+  :ensure t)
 
 (use-package elpy
+    :ensure t
     :init
     (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+    :bind (:map elpy-mode-map
+	      ("<M-left>" . nil)
+	      ("<M-right>" . nil)
+	      ("<M-S-left>" . elpy-nav-indent-shift-left)
+	      ("<M-S-right>" . elpy-nav-indent-shift-right)
+	      ("M-." . elpy-goto-definition)
+	      ("M-," . pop-tag-mark))
     :config
-    (setq elpy-rpc-backend "jedi"))
-
+    (setq elpy-rpc-backend "jedi")
+    (setq elpy-eldoc-show-current-function nil)
+    )
 
 (use-package python
   :mode ("\\.py" . python-mode)
@@ -182,65 +222,47 @@
   (setenv "WORKON_HOME" "~/.pyenv/versions/")
   :config
   (pyenv-mode)
-  :bind
-  ("C-x p e" . pyenv-activate-current-project))
+  :after (elpy)
+  )
 
 (use-package pyenv-mode-auto
+  :ensure t
   :after (pyenv-mode))
 
+; alternative  pyimport pyimpsort
+(use-package importmagic
+  :ensure t)
 
-(defun pyenv-activate-current-project ()
-  "Automatically activates pyenv version if .python-version file exists."
-  (interactive)
-  (let ((python-version-directory (locate-dominating-file (buffer-file-name) ".python-version")))
-    (if python-version-directory
-        (let* ((pyenv-version-path (f-expand ".python-version" python-version-directory))
-               (pyenv-current-version (s-trim (f-read-text pyenv-version-path 'utf-8))))
-          (pyenv-mode-set pyenv-current-version)
-          (message (concat "Setting virtualenv to " pyenv-current-version))))))
+(use-package pycoverage)
+;; Above is not working 
+;; look at this other coverate pacakge
+;; https://github.com/wbolster/emacs-python-coverage/blob/master/python-coverage.el
 
 
-(defvar pyenv-current-version nil nil)
-
-
-(defun pyenv-init()
-  "Initialize pyenv's current version to the global one."
-  (let ((global-pyenv (replace-regexp-in-string "\n" "" (shell-command-to-string "pyenv global"))))
-    (message (concat "Setting pyenv version to " global-pyenv))
-    (pyenv-mode-set global-pyenv)
-    (setq pyenv-current-version global-pyenv)))
-
-(add-hook 'after-init-hook 'pyenv-init)
-
-
-(defun elpy-module-company-quickhelp (command &rest _args)
-  "Enable company-quickhelp support for Python.
-Adds doc for completion to company's popup.
-COMMAND is elpy-module command."
-  (pcase command
-    (`global-init
-     (require 'company-quickhelp))
-    (`buffer-init
-     (company-quickhelp-local-mode)) ))
-
-
-(pyenv-mode)
-(elpy-enable)
-
-;;using flycheck instead of flymake
-;; (when (require 'flycheck nil t)
-;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
-;; (remove-hook 'elpy-modules 'elpy-module-flymake)
-
-;;(add-to-list 'flycheck-disabled-checkers 'python-flake8)
-;(add-to-list 'flycheck-disabled-checkers 'python-pylint)
-
-;; enable autopep8 formatting on save
-;;(require 'py-autopep8)
-;;(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+(autoload 'pylint "pylint")
+(add-hook 'python-mode-hook 'pylint-add-menu-items)
+(add-hook 'python-mode-hook 'pylint-add-key-bindings)
+;There is also a handy command `pylint-insert-ignore-comment' that
+;makes it easy to insert comments of the form `# pylint:
+;ignore=msg1,msg2,...'.
 
 (use-package k8s-mode
  :ensure t
  :config
  (setq k8s-search-documentation-browser-function 'browse-url-firefox)
  :hook (k8s-mode . yas-minor-mode))
+
+(use-package rg
+  :ensure t)
+
+(use-package dumb-jump  
+  :ensure t
+  :bind (("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go)
+         ("M-g b" . dumb-jump-back)
+         ("M-g i" . dumb-jump-go-prompt)
+         ("M-g x" . dumb-jump-go-prefer-external)
+         ("M-g z" . dumb-jump-go-prefer-external-other-window))
+  :config
+  (setq dumb-jump-force-searcher 'rg)
+  )
