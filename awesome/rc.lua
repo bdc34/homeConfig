@@ -253,6 +253,8 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+   awful.key({modkey,            }, "l", function () awful.util.spawn("light-locker-command --lock") end,
+             {}),
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -373,9 +375,12 @@ clientkeys = gears.table.join(
     --         c.fullscreen = not c.fullscreen
     --         c:raise()
     --     end,
-    --     {description = "toggle fullscreen", group = "client"}),
-    -- awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
-    --           {description = "close", group = "client"}),
+   --     {description = "toggle fullscreen", group = "client"}),
+    awful.key({  "Mod1"   }, "F4",      function (c) c:kill()                         end,
+              {description = "close2", group = "client"}),
+    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
+              {description = "close", group = "client"}),
+
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
     -- awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
@@ -484,7 +489,8 @@ awful.rules.rules = {
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen,
                      maximized_vertical = false,
-                     maximized_horizontal = false
+                     maximized_horizontal = false,
+                     maximized = false
      }
     },
 
@@ -518,11 +524,21 @@ awful.rules.rules = {
     { rule_any = {type = { "normal", "dialog" }
                   --      }, properties = { titlebars_enabled = true }
                         }, properties = { titlebars_enabled = false }
-    }
-,
+    },
+    { rule= { class = "chromium"},
+      properties = { maximized = false} },
+    { rule = { class = "zoom"},
+      properties = {maximized = false,
+                    floating = false,
+                    above = false,
+                    maximized_horizontal = false,
+                    maximized_vertical = false,
+                    fullscree = false}},
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
+
+
 }
 -- }}}
 
