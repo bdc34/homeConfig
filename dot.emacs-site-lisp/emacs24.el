@@ -1,14 +1,5 @@
 ;; Only run this stuff if we are living a emacs v >= 24
 
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
-;(add-to-list 'package-archives
-;             '("melpa-stable" . "https://stable.melpa.org/packages/")
-;             t)
-(package-initialize)
-
 (eval-when-compile
   (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/use-package"))
   (require 'use-package))
@@ -16,15 +7,15 @@
 ;; https://camdez.com/blog/2015/04/03/switching-to-melpa-stable/
 (setq my/packages '(ag alert beacon circe company-quickhelp diminish
 dimmer docker docker-compose-mode docker-tramp dockerfile-mode
-doom-modeline doom-themes all-the-icons ein auto-complete eldoc-eval
+doom-modeline doom-themes all-the-icons auto-complete eldoc-eval
 elpy company emojify eslint-fix find-file-in-project flx-ido
 flx  flycheck-pycheckers flymake gntp helm-ag
 helm-projectile helm-swoop helm helm-core highlight-indentation
  imenus ivy jinja2-mode json-mode json-reformat
-json-snatcher log4e lua-mode magit-gh-pulls magit git-commit gh logito
+json-snatcher log4e lua-mode  magit git-commit gh logito
 magit-popup markdown-toc markdown-mode marshal ht memoize multi-term
 oauth2 org-jira pcache php-mode popup pos-tip projectile
-py-autopep8 pythonic pyvenv request-deferred request
+py-autopep8 request-deferred request
 deferred rjsx-mode shrink-path f skewer-mode js2-mode simple-httpd
 smartparens sphinx-doc tablist terraform-mode hcl-mode tide flycheck
 seq let-alist pkg-info epl s dash typescript-mode
@@ -54,13 +45,13 @@ with-editor async yaml-mode yasnippet))
 ;; I liked C-d to open a file, I liked C-f to fall back to nomrmal find-file.
 ;; But I liked the space for search in ivy better.
 ;; but ido-mode for find-file
-;;(require 'ido)
-;;(ido-mode t)
-;;(custom-set-variables
-;; '(ido-enable-flex-matching t)
-;; '(ido-file-extensions-order (quote (".ts"))) ;; complete to typescript instead of js
-;; '(ido-mode 'file)
-;;)
+(require 'ido)
+(ido-mode t)
+(custom-set-variables
+ '(ido-enable-flex-matching t)
+ '(ido-file-extensions-order (quote (".ts"))) ;; complete to typescript instead of js
+ '(ido-mode 'file)
+)
 
 ;; Tried ivy as a replacement for ido for a couple months
 ;; I liked the way space worked in searches.
@@ -93,9 +84,13 @@ with-editor async yaml-mode yasnippet))
 
 (load-file (expand-file-name "~/.emacs-site-lisp/org-setup.el"))
 
-(use-package magit-gh-pulls
-  :ensure t)
-(add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+;;(use-package magit-gh-pulls
+;;  :ensure t)
+;;(add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+
+;;(define-key magit-mode-map (kbd ",") nil)
+;;(define-key magit-mode-map (kbd "k") nil)
+;;(define-key magit-mode-map (kbd "C-k") 'magit-delete-thing)
 
 
 (when window-system

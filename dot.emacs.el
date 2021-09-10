@@ -20,7 +20,25 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+
+(global-unset-key (kbd "C-x C-c"))
+(setq create-lockfiles nil)
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
+
+(condition-case nil
+    (require 'use-package)
+  (file-error
+   (require 'package)
+   (add-to-list 'package-archives
+                '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+   (package-initialize)
+   (package-refresh-contents)
+   (package-install 'use-package)
+   (require 'use-package)))
+
 
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs-site-lisp/local/"))
@@ -63,64 +81,58 @@
  '(ansi-color-names-vector
    ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
  '(beacon-color 0.6)
- '(browse-url-browser-function (quote browse-url-chrome))
- '(compilation-message-face (quote default))
+ '(browse-url-browser-function 'browse-url-chrome)
+ '(compilation-message-face 'default)
  '(custom-safe-themes
-   (quote
-    ("4fec44166534b09373e946bdf7c8377615c8d7fc1593dd4a3960754db66ea8b2" "0c32e4f0789f567a560be625f239ee9ec651e524e46a4708eb4aba3b9cdc89c5" "c5207e7b8cc960e08818b95c4b9a0c870d91db3eaf5959dd4eba09098b7f232b" "f5e56ac232ff858afb08294fc3a519652ce8a165272e3c65165c42d6fe0262a0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+   '("4fec44166534b09373e946bdf7c8377615c8d7fc1593dd4a3960754db66ea8b2" "0c32e4f0789f567a560be625f239ee9ec651e524e46a4708eb4aba3b9cdc89c5" "c5207e7b8cc960e08818b95c4b9a0c870d91db3eaf5959dd4eba09098b7f232b" "f5e56ac232ff858afb08294fc3a519652ce8a165272e3c65165c42d6fe0262a0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))
  '(ecb-layout-window-sizes nil)
  '(ecb-options-version "2.40")
  '(elpy-project-ignored-directories
-   (quote
-    (".tox" "build" "dist" ".cask" ".ipynb_checkpoints" ".hypothesis" ".git" ".idea" "__pycache__" ".pytest_cache" ".mypy_cache")))
+   '(".tox" "build" "dist" ".cask" ".ipynb_checkpoints" ".hypothesis" ".git" ".idea" "__pycache__" ".pytest_cache" ".mypy_cache"))
  '(fci-rule-color "#383838")
- '(font-lock-maximum-decoration (quote ((dired-mode . 1))))
+ '(font-lock-maximum-decoration '((dired-mode . 1)))
  '(global-highline-mode t)
  '(grep-find-command
-   (quote
-    ("find . -type f -exec grep --color -nH -e  \\{\\} + | cut -c -300" . 42)))
+   '("find . -type f -exec grep --color -nH -e  \\{\\} + | cut -c -300" . 42))
  '(grep-find-template
    "find <D> <X> -type f <F> -exec grep <C> -nH -e <R> \\{\\} + | cut -c -300")
  '(grep-highlight-matches t)
- '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
+ '(highlight-changes-colors '("#d33682" "#6c71c4"))
  '(highlight-tail-colors
-   (quote
-    (("#073642" . 0)
+   '(("#073642" . 0)
      ("#546E00" . 20)
      ("#00736F" . 30)
      ("#00629D" . 50)
      ("#7B6000" . 60)
      ("#8B2C02" . 70)
      ("#93115C" . 85)
-     ("#073642" . 100))))
+     ("#073642" . 100)))
+ '(ido-enable-flex-matching t)
+ '(ido-file-extensions-order '(".ts"))
+ '(ido-mode 'file nil (ido))
  '(json-reformat:indent-width 2)
  '(magit-diff-use-overlays nil)
  '(markdown-command "/usr/local/bin/kramdown --input GFM")
- '(org-agenda-files nil)
+ '(org-agenda-files
+   '("~/Dropbox/work/journal/bdc34workjournal.org" "~/Dropbox/work/journal/notes2013.org" "~/Dropbox/work/journal/notes2014.org" "~/Dropbox/work/journal/notes2015.org" "~/Dropbox/work/journal/notes2016.org" "~/Dropbox/work/journal/notes2017.org" "~/Dropbox/work/journal/notes2018.org" "~/Dropbox/personalNotes/2018-vetschooljob.org" "~/Dropbox/personalNotes/BrooklynArtists.org" "~/Dropbox/personalNotes/TomasSchuman.org" "~/Dropbox/personalNotes/UsingAMacNotes.org" "~/Dropbox/personalNotes/UsingLinuxNotes.org" "~/Dropbox/personalNotes/coverLetter2019-07CALSDevOps.org" "~/Dropbox/personalNotes/coverLetter2019-07Roper.org" "~/Dropbox/personalNotes/journal.org" "~/Dropbox/personalNotes/music.org" "~/Dropbox/personalNotes/resume_2018.vetschoo.org" "~/Dropbox/personalNotes/resume_2019-07Roper.org" "~/Dropbox/personalNotes/resume_2019.org" "~/Dropbox/personalNotes/resume_2019_07CALSOps.org" "~/Dropbox/personalNotes/songs.org" "~/Dropbox/personalNotes/wantsAndNeedsFromOs.org" "~/Dropbox/personalNotes/woodworking.org" "~/Dropbox/712/712-cayuga-rental-todo.org" "~/Dropbox/sailing/wayfarerLaunchList.org"))
  '(package-check-signature nil)
  '(package-selected-packages
-   (quote
-    (slack counsel-tramp counsel flycheck-package package-lint ivy-hydra helm-taskswitch beacon beacon-mode vlf php-mode sphinx-doc flycheck-mypy flycheck-pycheckers jinja2-mode company-quickhelp dimmer pipenv org-jira eslint-fix magit yasnippet yaml-mode async dash bind-key diminish typescript-mode s epl pkg-info seq flycheck hcl-mode tablist simple-httpd skewer-mode deferred request-deferred pythonic popup markdown-mode log4e json-snatcher json-reformat highlight-indentation gntp flx auto-complete pyvenv ivy ht helm-core find-file-in-project f pyenv-mode projectile helm ein py-autopep8 docker-compose-mode rjsx-mode web-mode js2-mode terraform-mode elpy docker docker-tramp dockerfile-mode undo-tree company tide zenburn-theme websocket web-beautify use-package ttl-mode tt-mode smartparens request oauth2 multi-term markdown-toc lua-mode json-mode imenus ido-better-flex flymake flx-ido ewmctrl emojify circe alert)))
- '(safe-local-variable-values (quote ((typescript-indent-level . 2))))
+   '(flycheck-tip flycheck-pyflakes pycoverage json-navigator pyenv-mode-auto pylint vterm importmagic which-key iedit flycheck-yamllint rg helm-rg counsel-tramp flycheck-package package-lint helm-taskswitch beacon-mode php-mode flycheck-mypy dimmer pipenv eslint-fix magit seq tablist flx ivy helm-core find-file-in-project helm web-mode company zenburn-theme ttl-mode tt-mode smartparens oauth2 ido-better-flex ewmctrl alert))
+ '(safe-local-variable-values '((typescript-indent-level . 2)))
  '(syslog-debug-face
-   (quote
-    ((t :background unspecified :foreground "#2aa198" :weight bold))))
+   '((t :background unspecified :foreground "#2aa198" :weight bold)))
  '(syslog-error-face
-   (quote
-    ((t :background unspecified :foreground "#dc322f" :weight bold))))
- '(syslog-hour-face (quote ((t :background unspecified :foreground "#859900"))))
+   '((t :background unspecified :foreground "#dc322f" :weight bold)))
+ '(syslog-hour-face '((t :background unspecified :foreground "#859900")))
  '(syslog-info-face
-   (quote
-    ((t :background unspecified :foreground "#268bd2" :weight bold))))
- '(syslog-ip-face (quote ((t :background unspecified :foreground "#b58900"))))
- '(syslog-su-face (quote ((t :background unspecified :foreground "#d33682"))))
+   '((t :background unspecified :foreground "#268bd2" :weight bold)))
+ '(syslog-ip-face '((t :background unspecified :foreground "#b58900")))
+ '(syslog-su-face '((t :background unspecified :foreground "#d33682")))
  '(syslog-warn-face
-   (quote
-    ((t :background unspecified :foreground "#cb4b16" :weight bold))))
+   '((t :background unspecified :foreground "#cb4b16" :weight bold)))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
-   (quote
-    ((20 . "#BC8383")
+   '((20 . "#BC8383")
      (40 . "#CC9393")
      (60 . "#DFAF8F")
      (80 . "#D0BF8F")
@@ -137,20 +149,15 @@
      (300 . "#7CB8BB")
      (320 . "#8CD0D3")
      (340 . "#94BFF3")
-     (360 . "#DC8CC3"))))
+     (360 . "#DC8CC3")))
  '(vc-annotate-very-old-color "#DC8CC3")
  '(vc-follow-symlinks t)
- '(web-mode-comment-formats
-   (quote
-    (("java" . "/*")
-     ("javascript" . "//")
-     ("php" . "/*"))) t)
+ '(web-mode-comment-formats '(("java" . "/*") ("javascript" . "//") ("php" . "/*")))
  '(web-mode-enable-auto-quoting nil)
  '(web-mode-enable-css-colorization t)
  '(web-mode-enable-current-element-highlight t)
  '(weechat-color-list
-   (quote
-    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
+   '(unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83"))
  '(which-function-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
