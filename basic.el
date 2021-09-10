@@ -83,12 +83,19 @@
 (global-set-key [C-S-return] 'open-previous-line)
 
 ;; don't keep backups in working directories 
-(setq backup-directory-alist '(("." . "~/.saves")))
+(setq backup-directory-alist '((".*" . "~/.saves")))
 (setq backup-by-copying t)
 (setq delete-old-versions t
-  kept-new-versions 6
+  kept-new-versions 10
   kept-old-versions 2
-  version-control t)
+  version-control t
+  vc-make-backup-files t)
 
+;;  #foo# auto-save files to a directory
+(setq auto-save-file-name-transforms `((".*" "~/.emacs-auto-saves/" t)))
+
+;; Don't make emacs lock files like .#something.json -> hostx.23432:161139029
+(setq create-lockfiles nil)
 
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+
