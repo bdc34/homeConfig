@@ -1,1 +1,0 @@
-org-reveal/ox-reveal.el

@@ -25,7 +25,7 @@
                       (define-key term-raw-map (kbd "C-<right>")      'term-send-Cright)
                       (define-key term-raw-map (kbd "C-<left>")       'term-send-Cleft))
 
-(global-hl-line-mode)
+;;(global-hl-line-mode)
 
 ;; eval .dir.local files on remote systems
 (setq enable-remote-dir-locals t)
@@ -33,7 +33,6 @@
 ;; no tab chars in files, spaces only! important for source control 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(defvaralias 'c-basic-offset 'tab-width)
 
 (defun my-setup-indent (n)
   ;; java/c/c++
@@ -50,13 +49,13 @@
 )
 (my-setup-indent 4)
 
-;;Don't try to truncate lines in partial width windws
+;;Don't try to truncate lines in partial width windows
 (setq truncate-partial-width-windows nil) 
 
 ;; This means when you visit a file, point goes to the last place
 ;; where it was when you previously visited the same file.
-(setq-default save-place t)
 (require 'saveplace)
+(setq-default save-place t)
 
 ;; make it so that C-x k will close a emacsclient
 (add-hook 'server-switch-hook
@@ -127,7 +126,6 @@
 (add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
 
 ;; Don't make tramp history files everywhere
-(require 'tramp-cache)
 (setq tramp-persistency-file-name "/tmp/tramp_connection_history")
 
 ;;Get rid of the .tamp_history files
@@ -159,3 +157,19 @@
       (if this-win-2nd (other-window 1))))))
 
 (global-set-key (kbd "C-x |") 'toggle-window-split)
+
+(defun func-region (start end func)
+  "run a function over the region between START and END in current buffer."
+  (save-excursion
+    (let ((text (delete-and-extract-region start end)))
+      (insert (funcall func text)))))
+
+(defun hex-region (start end)
+  "urlencode the region between START and END in current buffer."
+  (interactive "r")
+  (func-region start end #'url-hexify-string))
+
+(defun unhex-region (start end)
+  "de-urlencode the region between START and END in current buffer."
+  (interactive "r")
+  (func-region start end #'url-unhex-string))

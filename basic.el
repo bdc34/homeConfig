@@ -25,10 +25,6 @@
 (global-set-key [mouse-9] 'next-buffer)
 (global-set-key [mouse-8] 'previous-buffer)
 
-;; slow scrolling with wheel and ctrl
-(global-set-key (kbd "<C-mouse-4>") 'scroll-down-line)
-(global-set-key (kbd "<C-mouse-5>") 'scroll-up-line)
-
 (add-hook 'dired-mode-hook ;do vi movement in dired
           '(lambda ()
             (define-key dired-mode-map "j" 'dired-next-line)
@@ -54,33 +50,33 @@
 ;; make a command like vi's o and O
 ;; from http://www.emacswiki.org/emacs/OpenNextLine
 
-;; Behave like vi's o command
-(defun open-next-line (arg)
-  "Move to the next line and then opens a line.
-    See also `newline-and-indent'."
-  (interactive "p")
-  (end-of-line)
-  (open-line arg)
-  (next-line 1)
-  (when newline-and-indent
-    (indent-according-to-mode)))
+;; ;; Behave like vi's o command
+;; (defun open-next-line (arg)
+;;   "Move to the next line and then opens a line.
+;;     See also `newline-and-indent'."
+;;   (interactive "p")
+;;   (end-of-line)
+;;   (open-line arg)
+;;   (next-line 1)
+;;   (when newline-and-indent
+;;     (indent-according-to-mode)))
 
-;; Behave like vi's O command
-(defun open-previous-line (arg)
-  "Open a new line before the current one. 
-     See also `newline-and-indent'."
-  (interactive "p")
-  (beginning-of-line)
-  (open-line arg)
-  (when newline-and-indent
-    (indent-according-to-mode)))
+;; ;; Behave like vi's O command
+;; (defun open-previous-line (arg)
+;;   "Open a new line before the current one. 
+;;      See also `newline-and-indent'."
+;;   (interactive "p")
+;;   (beginning-of-line)
+;;   (open-line arg)
+;;   (when newline-and-indent
+;;     (indent-according-to-mode)))
 
-;; Autoindent open-*-lines
-(defvar newline-and-indent t
-  "Modify the behavior of the open-*-line functions to cause them to autoindent.")
+;; ;; Autoindent open-*-lines
+;; (defvar newline-and-indent t
+;;   "Modify the behavior of the open-*-line functions to cause them to autoindent.")
 
-(global-set-key [S-return]   'open-next-line)
-(global-set-key [C-S-return] 'open-previous-line)
+;; (global-set-key [S-return]   'open-next-line)
+;; (global-set-key [C-S-return] 'open-previous-line)
 
 ;; don't keep backups in working directories 
 (setq backup-directory-alist '((".*" . "~/.saves")))
@@ -92,10 +88,10 @@
   vc-make-backup-files t)
 
 ;;  #foo# auto-save files to a directory
-(setq auto-save-file-name-transforms `((".*" "~/.emacs-auto-saves/" t)))
+;; (setq auto-save-file-name-transforms `((".*" "~/.emacs-auto-saves/" t)))
 
 ;; Don't make emacs lock files like .#something.json -> hostx.23432:161139029
 (setq create-lockfiles nil)
 
-(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+;; (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 

@@ -8,3 +8,5 @@ How I'm working with pipenv and emacs elpy
 pip install autopep8 flake8 importmagic jedi pyflakes yapf mypy pylint
 pip install ipykernel
 python -m ipykernel install --user
+
+2022-02-24 Using lsp-pyrite instead

@@ -1,11 +1,11 @@
 # .bashrc 
 # This is run for interactive shells and for logins by .profile
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+# # If not running interactively, don't do anything
+# case $- in
+#     *i*) ;;
+#       *) return;;
+# esac
 
 # the default umask is set in /etc/profile; for setting the umask
 # for ssh logins, install and configure the libpam-umask package.
@@ -18,7 +18,17 @@ HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
-PROMPT_COMMAND='history -a;history -n'
+# multi line commands to single line
+shopt -s cmdhist
+# Append, clear and read history on each command prompt
+#export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; history -c; history -r"
+
+HISTTIMEFORMAT='%F %T '
+
+# Set no limit for history file size
+HISTSIZE=-1
+# Set no limit for history file size
+HISTFILESIZE=-1
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -122,9 +132,9 @@ alias l='ls -CF'
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-#if [ -f /etc/bash_completion ]; then
-#    . /etc/bash_completion
-#fi
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+fi
 
 # If this is an arXiv machine then add some extra stuff
 if [ "$CIT_SERVER" == 'yes' ] && [ $PROMPT_H =~ 'arxiv' ]   ; then
@@ -162,3 +172,35 @@ if [ -d /opt/perl ]; then
     export PATH="/opt/perl/bin:$PATH"
 fi
 
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/bdc34/google-cloud-sdk/path.bash.inc' ]; then . '/home/bdc34/google-cloud-sdk/path.bash.inc'; fi
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/bdc34/google-cloud-sdk/completion.bash.inc' ]; then . '/home/bdc34/google-cloud-sdk/completion.bash.inc'; fi
+
+
+if [ -d /home/bdc34/.pyenv ] && [ -z $PYENV_ROOT]; then
+    export PYENV_ROOT="/home/bdc34/.pyenv"
+    if [[ ! $PATH =~ 'pyenv' ]]; then
+        export PATH="/home/bdc34/.pyenv/bin:$PATH"
+    fi
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+    #strip the ; since that messes up emacs vterm
+    PROMPT_COMMAND=_pyenv_virtualenv_hook
+fi
+
+# Poetry is in .local/bin so that precedence over pyenv
+if [ -e /home/bdc34/.local/bin ]; then
+    export PATH=/home/bdc34/.local/bin:$PATH
+fi
+
+export CLOUDSDK_PYTHON=$(pyenv prefix 3.8.14)/bin/python3
+
+
+# MUST BE after anything that alters PS1 or PROMPT_COMMAND
+if [[ "$INSIDE_EMACS" = 'vterm' ]] \
+    && [[ -n ${EMACS_VTERM_PATH} ]] \
+    && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-bash.sh ]]; then
+	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-bash.sh
+    #source ~/.emacs-vterm-bash.sh
+fi
