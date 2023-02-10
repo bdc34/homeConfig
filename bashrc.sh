@@ -178,7 +178,7 @@ if [ -f '/home/bdc34/google-cloud-sdk/path.bash.inc' ]; then . '/home/bdc34/goog
 if [ -f '/home/bdc34/google-cloud-sdk/completion.bash.inc' ]; then . '/home/bdc34/google-cloud-sdk/completion.bash.inc'; fi
 
 
-if [ -d /home/bdc34/.pyenv ] && [ -z $PYENV_ROOT]; then
+if [ -d /home/bdc34/.pyenv ] && [ -z $PYENV_ROOT ]; then
     export PYENV_ROOT="/home/bdc34/.pyenv"
     if [[ ! $PATH =~ 'pyenv' ]]; then
         export PATH="/home/bdc34/.pyenv/bin:$PATH"
@@ -202,5 +202,4 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]] \
     && [[ -n ${EMACS_VTERM_PATH} ]] \
     && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-bash.sh ]]; then
 	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-bash.sh
-    #source ~/.emacs-vterm-bash.sh
 fi
